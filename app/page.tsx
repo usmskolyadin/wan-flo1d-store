@@ -1,65 +1,1263 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowUpRight,
+  Globe,
+  ExternalLink,
+} from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Lenis from "@studio-freight/lenis";
+import {
+  FaGithub,
+  FaTelegram,
+  FaYoutube,
+  FaInstagram,
+} from "react-icons/fa";
+
+
+const works = [
+
+  {
+    title: "ZAMDA",
+    description:
+      "Advertising marketplace like Avito, Shpok",
+    stack: [
+      "Python",
+      "Django REST Framework",
+      "WebSockets",
+      "Next.js",
+    ],
+    price: "$2500+",
+    hero: "/works/zamda/1.png",
+    gallery: [
+      "/works/zamda/1.png",
+      "/works/zamda/2.png",
+      "/works/zamda/3.png",
+      "/works/zamda/4.png",
+      "/works/zamda/5.png",
+      "/works/zamda/6.png",
+    ],
+  },
+  {
+    title: "SEAMUSIC",
+    description:
+      "Premium music marketplace platform for producers & artists with licensing, AI systems and social mechanics.",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Tailwind",
+    ],
+    price: "Custom",
+    hero: "/works/seamusic/1.png",
+    gallery: [
+      "/works/seamusic/1.png",
+      "/works/seamusic/2.png",
+      "/works/seamusic/3.png",
+      "/works/seamusic/4.png",
+      "/works/seamusic/5.png",
+      "/works/seamusic/6.png",
+    ],
+  },
+  {
+    title: "HAPPYFLOWDESIGN",
+    description:
+      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+    stack: [
+      "Next.js",
+      "Node.js",
+      "MongoDB",
+      "AWS",
+      "Stripe",
+    ],
+    price: "$1000+",
+    hero: "/works/happyflowdesign/4.jpg",
+    gallery: [
+      "/works/happyflowdesign/1.jpg",
+      "/works/happyflowdesign/2.jpg",
+      "/works/happyflowdesign/3.jpg",
+      "/works/happyflowdesign/4.jpg",
+      "/works/happyflowdesign/5.jpg",
+      "/works/happyflowdesign/6.jpg",
+    ],
+  },
+  {
+    title: "карьерамолодых.рф",
+    description:
+      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+    stack: [
+      "Next.js",
+      "Node.js",
+      "MongoDB",
+      "AWS",
+      "Stripe",
+    ],
+    price: "$5,000+",
+    hero: "/works/career/centr.jpg",
+    gallery: [
+      "/works/career/centr2.jpg",
+      "/works/career/centr3.jpg",
+    ],
+  },
+  {
+    title: "dveri24",
+    description:
+      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+    stack: [
+      "Django",
+    ],
+    price: "$500+",
+    hero: "/works/doors/dveri1.jpg",
+    gallery: [
+      "/works/doors/dveri2.jpg",
+      "/works/doors/dveri3.jpg",
+      "/works/doors/dveri4.jpg",
+    ],
+  },
+  {
+    title: "ARTIZ",
+    description:
+      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+    stack: [
+      "Django",
+    ],
+    price: "$500+",
+    hero: "/works/artiz/artiz4.jpg",
+    gallery: [
+      "/works/artiz/artiz1.jpg",
+      "/works/artiz/artiz2.jpg",
+      "/works/artiz/artiz3.jpg",
+      "/works/artiz/artiz4.jpg",
+    ],
+  },
+  {
+    title: "STUDIAU7",
+    description:
+      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+    stack: [
+      "Django",
+    ],
+    price: "$500+",
+    hero: "/works/artiz/artiz4.jpg",
+    gallery: [
+      "/works/artiz/artiz1.jpg",
+      "/works/artiz/artiz2.jpg",
+    ],
+  },
+];
+
+const companies = [
+  "SeaMusic",
+  "БАРС",
+  "ЦСМС",
+  "ZAMDA",
+  "STUDIAU7",
+  "HappyFlowDesign",
+  "Elfardi",
+  "Dveri-msk24",
+  "SpacyCookingHere",
+];
+
+const translations = {
+  en: {
+    heroTitle: "wan flo1d's store",
+    heroSubtitle:
+      "Creative developer, producer & designer crafting futuristic digital experiences.",
+    heroDescription:
+      "I build premium interfaces, music ecosystems and visual systems focused on aesthetics, emotion and performance.",
+    about: "About",
+    projects: "Selected Works",
+    contact: "Available for collaborations",
+    button: "Explore Projects",
+  },
+  ru: {
+    heroTitle: "wan flo1d's store",
+    heroSubtitle:
+      "Креативный разработчик, продюсер и дизайнер, создающий футуристичные digital-проекты.",
+    heroDescription:
+      "Я создаю premium-интерфейсы, музыкальные платформы и визуальные системы с акцентом на эстетику и эмоции.",
+    about: "Обо Мне",
+    projects: "Избранные Работы",
+    contact: "Открыт для коллабораций",
+    button: "Смотреть Проекты",
+  },
+};
 
 export default function Home() {
+  const [lang, setLang] = useState<"en" | "ru">("en");
+  const [current, setCurrent] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(0);
+
+  const t = useMemo(() => translations[lang], [lang]);
+
+  // LENIS SMOOTH SCROLL
+  useEffect(() => {
+    const lenis = new Lenis({
+      smoothWheel: true,
+      duration: 1.2,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  // MOUSE FOLLOW EFFECT
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const smoothX = useSpring(mouseX, {
+    damping: 25,
+    stiffness: 120,
+  });
+
+  const smoothY = useSpring(mouseY, {
+    damping: 25,
+    stiffness: 120,
+  });
+
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      mouseX.set(e.clientX - 150);
+      mouseY.set(e.clientY - 150);
+    };
+
+    window.addEventListener("mousemove", move);
+
+    return () => window.removeEventListener("mousemove", move);
+  }, [mouseX, mouseY]);
+
+  const nextSlide = () => {
+    setCurrent((prev) => (prev + 1) % works.length);
+    setSelectedImage(0);
+  };
+
+  const prevSlide = () => {
+    setCurrent((prev) => (prev - 1 + works.length) % works.length);
+    setSelectedImage(0);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="relative min-h-screen overflow-hidden bg-[#f7f7f5] text-black">
+      <motion.div
+        style={{
+          x: smoothX,
+          y: smoothY,
+        }}
+        className="pointer-events-none fixed z-0 h-[300px] w-[300px] rounded-full bg-black/10 blur-[120px]"
+      />
+
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.03] mix-blend-multiply">
+        <div
+          className="h-full w-full"
+          style={{
+            backgroundImage:
+              "url('https://grainy-gradients.vercel.app/noise.svg')",
+          }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+      </div>
+
+      <header className="fixed top-0 z-50 w-full px-6 py-5">
+        <motion.div
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-black/10 bg-white/60 px-6 py-4 shadow-[0_8px_40px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
+        >
+          <div className="flex items-center gap-10">
+            <h1
+              className="flex items-center gap-3 text-lg font-black uppercase tracking-[0.1em]"
+              style={{
+                fontFamily: "Benzin, sans-serif",
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              <span className="relative text-black/35 line-through decoration-2">
+                SPACY
+              </span>
+
+              <span className="text-black">
+                WAN FLO1D
+              </span>
+
+              <span className="text-black/35">
+                STORE
+              </span>
+            </h1>
+
+            <nav className="hidden gap-8 md:flex">
+              {["Home", "Projects", "About", "Contact"].map((item) => (
+                <button
+                  key={item}
+                  className="group relative text-sm font-medium text-black/60 transition-all hover:text-black"
+                >
+                  {item}
+
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-black transition-all duration-300 group-hover:w-full" />
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="flex overflow-hidden rounded-full border border-black/10 bg-white/60 backdrop-blur-xl">
+              <button
+                onClick={() => setLang("en")}
+                className={`px-4 py-2 text-sm transition-all ${
+                  lang === "en"
+                    ? "bg-black text-white"
+                    : "text-black/60"
+                }`}
+              >
+                EN
+              </button>
+
+              <button
+                onClick={() => setLang("ru")}
+                className={`px-4 py-2 text-sm transition-all ${
+                  lang === "ru"
+                    ? "bg-black text-white"
+                    : "text-black/60"
+                }`}
+              >
+                RU
+              </button>
+            </div>
+
+            <button className="rounded-full border border-black/10 bg-white/60 p-3 backdrop-blur-xl transition-all hover:scale-105">
+              <Globe size={18} />
+            </button>
+          </div>
+        </motion.div>
+      </header>
+
+      <section className="relative z-10 flex min-h-screen items-center px-6 pt-32">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-20 lg:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="space-y-8"
+          >
+            <div className="inline-flex rounded-full border border-black/10 bg-white/50 px-5 py-2 text-sm backdrop-blur-xl">
+              {t.contact}
+            </div>
+
+            <h1
+              className="text-6xl font-black uppercase leading-[0.9] tracking-tight md:text-8xl"
+              style={{
+                fontFamily: "Benzin, sans-serif",
+              }}
             >
-              Learning
-            </a>{" "}
-            center.
+              {t.heroTitle}
+            </h1>
+
+            <p className="max-w-xl text-xl leading-relaxed text-black/60">
+              {t.heroSubtitle}
+            </p>
+
+            <p className="max-w-xl text-base leading-8 text-black/45">
+              {t.heroDescription}
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <button className="group flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm font-medium text-white transition-all hover:scale-105">
+                {t.button}
+
+                <ArrowUpRight
+                  size={18}
+                  className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+                />
+              </button>
+
+              <button className="rounded-full border border-black/10 bg-white/60 px-7 py-4 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white">
+                {t.about}
+              </button>
+            </div>
+            <div className="flex items-center gap-3">
+              {[
+                {
+                  icon: FaGithub,
+                  href: "https://github.com/yourusername",
+                },
+                {
+                  icon: FaTelegram,
+                  href: "https://t.me/yourusername",
+                },
+                {
+                  icon: FaYoutube,
+                  href: "https://youtube.com/@yourusername",
+                },
+                {
+                  icon: FaInstagram,
+                  href: "https://instagram.com/yourusername",
+                },
+              ].map((item, i) => {
+                const Icon = item.icon;
+
+                return (
+                  <a
+                    key={i}
+                    href={item.href}
+                    target="_blank"
+                    className="flex h-14 w-14 items-center justify-center rounded-full border border-black/10 bg-white/60 backdrop-blur-xl transition-all hover:-translate-y-1 hover:scale-105 hover:bg-black hover:text-white"
+                  >
+                    <Icon size={18} />
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2 }}
+            className="relative"
+          >
+            <div className="absolute -inset-10 rounded-full bg-black/10 blur-3xl" />
+
+            <div className="relative overflow-hidden rounded-[40px] border border-white/40 bg-white/50 p-4 shadow-[0_10px_60px_rgba(0,0,0,0.15)] backdrop-blur-2xl">
+              <Image
+                src="/me.jpg"
+                alt="wan flo1d"
+                width={600}
+                height={800}
+                priority
+                className="rounded-[28px] object-cover grayscale transition-all duration-700 hover:scale-105 hover:grayscale-0"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      <section className="relative z-10 overflow-hidden border-y border-black/10 bg-white/40 py-6 mt-8 backdrop-blur-xl">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            repeat: Infinity,
+            ease: "linear",
+            duration: 24,
+          }}
+          className="flex w-max gap-20 whitespace-nowrap"
+        >
+          {[...companies, ...companies].map((company, i) => (
+            <div
+              key={i}
+              className="text-lg font-semibold uppercase tracking-[0.35em] text-black/40"
+              style={{
+                fontFamily: "Benzin, sans-serif",
+              }}
+            >
+              {company}
+            </div>
+          ))}
+        </motion.div>
+      </section>
+
+      <section className="relative z-10 px-6 py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 flex items-center justify-between">
+            <div>
+              <p className="mb-3 text-sm uppercase tracking-[0.35em] text-black/40">
+                Portfolio
+              </p>
+
+              <h2
+                className="text-5xl font-black uppercase"
+                style={{
+                  fontFamily: "Benzin, sans-serif",
+                }}
+              >
+                {t.projects}
+              </h2>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={prevSlide}
+                className="rounded-full border border-black/10 bg-white/60 p-4 backdrop-blur-xl transition-all hover:scale-105 hover:bg-black hover:text-white"
+              >
+                <ChevronLeft />
+              </button>
+
+              <button
+                onClick={nextSlide}
+                className="rounded-full border border-black/10 bg-white/60 p-4 backdrop-blur-xl transition-all hover:scale-105 hover:bg-black hover:text-white"
+              >
+                <ChevronRight />
+              </button>
+            </div>
+          </div>
+
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, y: 70 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="overflow-hidden rounded-[42px] border border-white/40 bg-white/40 p-5 shadow-[0_10px_60px_rgba(0,0,0,0.12)] backdrop-blur-2xl"
+          >
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+              <div>
+                <div className="group relative overflow-hidden rounded-[34px]">
+                  <Image
+                    src={works[current].gallery[selectedImage]}
+                    alt={works[current].title}
+                    width={1800}
+                    height={1200}
+                    className="h-[500px] w-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+                  <div className="absolute bottom-8 left-8">
+                    <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/60">
+                      Premium Project
+                    </p>
+
+                    <h3
+                      className="text-4xl font-black uppercase text-white"
+                      style={{
+                        fontFamily: "Benzin, sans-serif",
+                      }}
+                    >
+                      {works[current].title}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid grid-cols-4 gap-4">
+                  {works[current].gallery.map((img, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImage(index)}
+                      className={`overflow-hidden rounded-[24px] border transition-all ${
+                        selectedImage === index
+                          ? "border-black shadow-xl"
+                          : "border-black/10"
+                      }`}
+                    >
+                      <Image
+                        src={img}
+                        alt=""
+                        width={400}
+                        height={300}
+                        className="h-[110px] w-full object-cover transition-all duration-500 hover:scale-105"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between">
+                <div>
+                  <div className="mb-8 inline-flex rounded-full border border-black/10 bg-white/70 px-5 py-2 text-sm backdrop-blur-xl">
+                    Custom Development
+                  </div>
+
+                  <h3
+                    className="text-5xl font-black uppercase leading-[1]"
+                    style={{
+                      fontFamily: "Benzin, sans-serif",
+                    }}
+                  >
+                    {works[current].title}
+                  </h3>
+
+                  <p className="mt-8 text-base leading-8 text-black/60">
+                    {works[current].description}
+                  </p>
+
+                  <div className="mt-10">
+                    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-black/40">
+                      Stack
+                    </p>
+
+                    <div className="flex flex-wrap gap-3">
+                      {works[current].stack.map((tech) => (
+                        <div
+                          key={tech}
+                          className="rounded-full border border-black/10 bg-white/60 px-5 py-3 text-sm font-medium backdrop-blur-xl"
+                        >
+                          {tech}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-10 rounded-[30px] border border-black/10 bg-black p-8 text-white">
+                    <p className="text-sm uppercase tracking-[0.3em] text-white/50">
+                      Starting Price
+                    </p>
+
+                    <h4
+                      className="mt-3 text-5xl font-black"
+                      style={{
+                        fontFamily: "Benzin, sans-serif",
+                      }}
+                    >
+                      {works[current].price}
+                    </h4>
+                  </div>
+                </div>
+
+                <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                  <button className="group flex items-center justify-center gap-3 rounded-full bg-black px-7 py-5 text-sm font-medium text-white transition-all hover:scale-[1.03]">
+                    Order Similar Project
+
+                    <ExternalLink
+                      size={18}
+                      className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+                    />
+                  </button>
+
+                  <button className="rounded-full border border-black/10 bg-white/60 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white">
+                    Full Case Study
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      <section className="relative z-10 px-6 py-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-20 max-w-3xl">
+            <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
+              Services
+            </p>
+
+            <h2
+              className="text-5xl font-black uppercase leading-[1]"
+              style={{
+                fontFamily: "Benzin, sans-serif",
+              }}
+            >
+              DIGITAL PRODUCTS
+              <br />
+              & CREATIVE SYSTEMS
+            </h2>
+
+            <p className="mt-8 text-lg leading-8 text-black/55">
+              Premium custom development focused on aesthetics, performance and
+              originality. Every project is built from scratch without templates or
+              builders.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {[
+              {
+                title: "LANDING PAGE",
+                description:
+                  "High-converting premium landing pages with smooth animations, strong visual identity and modern UX.",
+                price: "from $400",
+                tags: ["Next.js", "Framer Motion", "Tailwind"],
+              },
+
+              {
+                title: "BUSINESS WEBSITE",
+                description:
+                  "Minimal and stylish websites for brands, artists, startups and creative studios.",
+                price: "from $700",
+                tags: ["Full Responsive", "SEO", "CMS"],
+              },
+
+              {
+                title: "AI SCRIPT / ML",
+                description:
+                  "Custom AI systems, automation scripts, computer vision, chatbots and machine learning tools.",
+                price: "from $1200",
+                tags: ["Python", "OpenCV", "FastAPI"],
+              },
+
+              {
+                title: "MARKETPLACE",
+                description:
+                  "Complex platforms with payments, subscriptions, dashboards, analytics and social systems.",
+                price: "from $3500",
+                tags: ["Fullstack", "PostgreSQL", "Redis"],
+              },
+
+              {
+                title: "CUSTOM WEB APP",
+                description:
+                  "Completely custom systems and interfaces tailored specifically for your business logic.",
+                price: "custom",
+                tags: ["Architecture", "Scalable", "Secure"],
+              },
+
+              {
+                title: "UI / BRAND DESIGN",
+                description:
+                  "Premium visual identity, futuristic interfaces and creative direction for digital brands.",
+                price: "from $300",
+                tags: ["Figma", "Branding", "Creative"],
+              },
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 70 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="group relative overflow-hidden rounded-[36px] border border-white/50 bg-white/50 p-8 shadow-[0_10px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_80px_rgba(0,0,0,0.14)]"
+              >
+                <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-black/5 blur-3xl transition-all duration-700 group-hover:scale-150" />
+
+                <div className="relative z-10">
+                  <div className="mb-8 flex items-start justify-between">
+                    <div className="rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.2em] backdrop-blur-xl">
+                      Premium
+                    </div>
+
+                    <p className="text-sm uppercase tracking-[0.2em] text-black/40">
+                      {service.price}
+                    </p>
+                  </div>
+
+                  <h3
+                    className="text-3xl font-black uppercase leading-[1.05]"
+                    style={{
+                      fontFamily: "Benzin, sans-serif",
+                    }}
+                  >
+                    {service.title}
+                  </h3>
+
+                  <p className="mt-6 text-base leading-8 text-black/60">
+                    {service.description}
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    {service.tags.map((tag) => (
+                      <div
+                        key={tag}
+                        className="rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.12em] backdrop-blur-xl"
+                      >
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+
+                  <button className="mt-10 flex w-full items-center justify-center gap-3 rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02]">
+                    Order Service
+
+                    <ArrowUpRight
+                      size={18}
+                      className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+                    />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative mt-24 overflow-hidden rounded-[42px] border border-white/50 bg-black p-12 text-white shadow-[0_20px_100px_rgba(0,0,0,0.2)]"
+          >
+            <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+
+            <div className="relative z-10 grid grid-cols-1 gap-14 lg:grid-cols-2">
+              <div>
+                <p className="mb-5 text-sm uppercase tracking-[0.35em] text-white/40">
+                  Contact
+                </p>
+
+                <h3
+                  className="text-5xl font-black uppercase leading-[1]"
+                  style={{
+                    fontFamily: "Benzin, sans-serif",
+                  }}
+                >
+                  LET'S BUILD
+                  <br />
+                  SOMETHING
+                  <br />
+                  DIFFERENT.
+                </h3>
+
+                <p className="mt-8 max-w-xl text-lg leading-8 text-white/60">
+                  If you need a premium website, marketplace, AI system or custom
+                  digital product — contact me directly.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-5">
+                <a
+                  href="https://t.me/yourusername"
+                  target="_blank"
+                  className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+                >
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.25em] opacity-50">
+                      Telegram
+                    </p>
+
+                    <h4
+                      className="mt-2 text-2xl font-black uppercase"
+                      style={{
+                        fontFamily: "Benzin, sans-serif",
+                      }}
+                    >
+                      @wanflo1d
+                    </h4>
+                  </div>
+
+                  <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                </a>
+
+                <a
+                  href="mailto:hello@flo1d.store"
+                  className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+                >
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.25em] opacity-50">
+                      Email
+                    </p>
+
+                    <h4
+                      className="mt-2 text-2xl font-black uppercase"
+                      style={{
+                        fontFamily: "Benzin, sans-serif",
+                      }}
+                    >
+                      wanflo1d@gmail.com
+                    </h4>
+                  </div>
+
+                  <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                </a>
+
+                <a
+                  href="https://instagram.com/yourusername"
+                  target="_blank"
+                  className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+                >
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.25em] opacity-50">
+                      Instagram
+                    </p>
+
+                    <h4
+                      className="mt-2 text-2xl font-black uppercase"
+                      style={{
+                        fontFamily: "Benzin, sans-serif",
+                      }}
+                    >
+                      @wanflo1d
+                    </h4>
+                  </div>
+
+                  <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      <section className="relative z-10 px-6 py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-20 max-w-4xl">
+            <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
+              Advertising
+            </p>
+
+            <h2
+              className="text-5xl font-black uppercase leading-[1]"
+              style={{
+                fontFamily: "Benzin, sans-serif",
+              }}
+            >
+              PROMOTE YOUR
+              <br />
+              MUSIC, BRAND
+              <br />
+              OR PRODUCT
+            </h2>
+
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-black/55">
+              Advertising placements across the SeaMusic ecosystem, Telegram
+              channels and YouTube integrations focused on music, producers,
+              artists and digital culture.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 xl:grid-cols-[1.1fr_0.9fr]">
+            <motion.div
+              initial={{ opacity: 0, y: 70 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="group relative overflow-hidden rounded-[42px] border border-white/50 bg-black p-10 text-white shadow-[0_20px_100px_rgba(0,0,0,0.18)]"
+            >
+              <div className="absolute -right-10 -top-10 h-72 w-72 rounded-full bg-white/10 blur-3xl transition-all duration-700 group-hover:scale-125" />
+
+              <div className="relative z-10">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="rounded-full border border-white/10 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.25em] backdrop-blur-xl">
+                    Main Placement
+                  </div>
+
+                  <p className="text-sm uppercase tracking-[0.25em] text-white/40">
+                    SeaMusic Ecosystem
+                  </p>
+                </div>
+
+                <h3
+                  className="mt-10 text-6xl font-black uppercase leading-[0.95]"
+                  style={{
+                    fontFamily: "Benzin, sans-serif",
+                  }}
+                >
+                  SEAMUSIC
+                  <br />
+                  ADS
+                </h3>
+
+                <p className="mt-8 max-w-2xl text-lg leading-8 text-white/60">
+                  Place banners, promoted releases, artist pages and branded
+                  integrations directly inside the SeaMusic platform ecosystem.
+                </p>
+
+                <div className="mt-14 grid grid-cols-2 gap-5 md:grid-cols-4">
+                  {[
+                    {
+                      title: "Music Audience",
+                      value: "24K+",
+                    },
+
+                    {
+                      title: "Monthly Reach",
+                      value: "180K+",
+                    },
+
+                    {
+                      title: "CTR",
+                      value: "8.2%",
+                    },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-xl"
+                    >
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                        {item.title}
+                      </p>
+
+                      <h4
+                        className="mt-3 text-3xl font-black uppercase"
+                        style={{
+                          fontFamily: "Benzin, sans-serif",
+                        }}
+                      >
+                        {item.value}
+                      </h4>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-14 flex flex-col gap-4 sm:flex-row">
+                  <a
+                    href="https://t.me/yourusername"
+                    target="_blank"
+                    className="group flex items-center justify-center gap-3 rounded-full bg-white px-7 py-5 text-sm font-medium text-black transition-all hover:scale-[1.03]"
+                  >
+                    Buy Advertisement
+
+                    <ArrowUpRight
+                      size={18}
+                      className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+                    />
+                  </a>
+
+                  <button className="rounded-full border border-white/10 bg-white/5 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-white hover:text-black">
+                    Media Kit
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="grid gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 70 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="group relative overflow-hidden rounded-[38px] border border-white/50 bg-white/50 p-8 shadow-[0_10px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2"
+              >
+                <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-black/5 blur-3xl" />
+
+                <div className="relative z-10">
+                  <div className="mb-8 flex items-center justify-between">
+                    <div className="rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.2em] backdrop-blur-xl">
+                      Telegram
+                    </div>
+
+                    <p className="text-sm uppercase tracking-[0.2em] text-black/40">
+                      Fast Reach
+                    </p>
+                  </div>
+
+                  <h3
+                    className="text-4xl font-black uppercase leading-[1]"
+                    style={{
+                      fontFamily: "Benzin, sans-serif",
+                    }}
+                  >
+                    TG CHANNEL
+                    <br />
+                    PROMOTION
+                  </h3>
+
+                  <p className="mt-6 text-base leading-8 text-black/60">
+                    Native ads, pinned posts, producer promotions and music
+                    marketing inside Telegram channels.
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    {["Pinned Posts", "Native Ads", "Artists"].map((tag) => (
+                      <div
+                        key={tag}
+                        className="rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.12em]"
+                      >
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+
+                  <a
+                    href="https://t.me/yourusername"
+                    target="_blank"
+                    className="group mt-10 flex items-center justify-between rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all hover:scale-[1.02]"
+                  >
+                    Order Telegram Ad
+
+                    <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                  </a>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 70 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="group relative overflow-hidden rounded-[38px] border border-white/50 bg-white/50 p-8 shadow-[0_10px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2"
+              >
+                <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-black/5 blur-3xl" />
+
+                <div className="relative z-10">
+                  <div className="mb-8 flex items-center justify-between">
+                    <div className="rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.2em] backdrop-blur-xl">
+                      YouTube
+                    </div>
+
+                    <p className="text-sm uppercase tracking-[0.2em] text-black/40">
+                      Video Integration
+                    </p>
+                  </div>
+
+                  <h3
+                    className="text-4xl font-black uppercase leading-[1]"
+                    style={{
+                      fontFamily: "Benzin, sans-serif",
+                    }}
+                  >
+                    YOUTUBE
+                    <br />
+                    SPONSORSHIP
+                  </h3>
+
+                  <p className="mt-6 text-base leading-8 text-black/60">
+                    Integrated sponsor segments, visual placements and creator
+                    collaborations focused on music and digital culture.
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    {["Sponsor Segment", "Video Ads", "Branding"].map((tag) => (
+                      <div
+                        key={tag}
+                        className="rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.12em]"
+                      >
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+
+                  <a
+                    href="mailto:hello@flo1d.store"
+                    className="group mt-10 flex items-center justify-between rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all hover:scale-[1.02]"
+                  >
+                    Request YouTube Ad
+
+                    <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                  </a>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+<section className="relative z-10 px-6 py-32">
+  <div className="mx-auto max-w-7xl">
+    <div className="mb-20 max-w-3xl">
+      <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
+        Feedback
+      </p>
+
+      <h2
+        className="text-5xl font-black uppercase leading-[1]"
+        style={{
+          fontFamily: "Benzin, sans-serif",
+        }}
+      >
+        PEOPLE
+        <br />
+        TALK.
+      </h2>
+
+      <p className="mt-8 text-lg leading-8 text-black/55">
+        Real feedback from artists, creators, clients and people who worked
+        with me on different projects and systems.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+      {[
+        {
+          text: "благодарю Максима за качественный проект, сделанный в сжатые сроки🔥 накидывал свои идеи, которые были к месту, подняли актуальность и функционал проекта возникавшие ошибки в ходе проекта решал по возможности незамедлительно🤝🏼 писал комментарии, чтобы было легче ориентироваться и понимать, что-за часть кода все папки и код также были структурированы был на связи и днем, и ночью😇 перед защитой проверили весь функционал, есть ли ошибки",
+          author: "Fila St",
+          source: "Telegram",
+          positive: true,
+        },
+
+        {
+          text: "...Благо действительно понимающий и ответственный человек, которому можно доверять. Отмечу: Максим все уточняет, задает грамотные вопросы. Код понятный. При возникновении проблем у заказчика очень отзывчив. Понимает свою главную задачу и усердно работает по техническому заданию - предоставленным данным для разработки. Однозначно рекомендую Максима) Уверена, он точно поможет с работой любой сложности!",
+          author: "Анюта",
+          source: "Telegram",
+          positive: true,
+        },
+
+        {
+          text: "Спасибо большое Максиму, работа сделана хорошо, всегда был на связи, все моменты потом объяснил, прям супер супер, коды не километровые, все правки выполнял, в срок успели) еще раз спасибо большое 🫶🏼",
+          author: "amaliya",
+          source: "Telegram",
+          positive: true,
+        },
+
+        {
+          text: "попросил помочь с курсовой сроки горели помог все быстро и четко сделать за сутки все время был на связи за курсовую получил 5 от души если что буду еще обращаться🤝✅",
+          author: "alex.mp3",
+          source: "Telegram",
+          positive: false,
+        },
+
+        {
+          text: "Максим очень ответственный и внимательный, все сделал в срок. Очень благодарна.",
+          author: "Мирра",
+          source: "Avito",
+          positive: true,
+        },
+
+        {
+          text: "Максим, очень выручил с задачей быстро отреагировал и за вполне адекватная цена!!! Всем советую, обязательно обращаюсь еще",
+          author: "Транспорт48",
+          source: "Instagram",
+          positive: true,
+        },
+        {
+          text: "Максим отличный разработчик и очень ответственный исполнитель. Код написал чисто и грамотно, вся структура проекта продумана логично и удобно. Все задачи выполняет точно по техническому заданию, без лишних вопросов и задержек. Проект работает стабильно, без ошибок. Видно, что человек действительно разбирается в Full-Stack разработке и подходит к делу с пониманием. Рекомендую Максима всем, кто ищет профессионала с опытом и техническим мышлением. Буду рад продолжить сотрудничество!",
+          author: "ZAMDA",
+          source: "kwork",
+          positive: true,
+        },
+        {
+          text: "Максим быстро понял и выполнил всё по моему тз, рекомендую!",
+          author: "карьерамолодых.рф",
+          source: "kwork",
+          positive: true,
+        },
+      ].map((review, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 70 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.08 }}
+          viewport={{ once: true }}
+          className="group relative overflow-hidden rounded-[36px] border border-white/50 bg-white/50 p-8 shadow-[0_10px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_80px_rgba(0,0,0,0.12)]"
+        >
+          <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-black/5 blur-3xl transition-all duration-700 group-hover:scale-150" />
+
+          <div className="relative z-10 mb-8 flex items-center justify-between">
+            <div
+              className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.2em] ${
+                review.positive
+                  ? "border border-black/10 bg-black text-white"
+                  : "border border-black/10 bg-white text-black"
+              }`}
+            >
+              {review.positive ? "Positive" : "Neutral"}
+            </div>
+
+            <p className="text-xs uppercase tracking-[0.2em] text-black/40">
+              {review.source}
+            </p>
+          </div>
+
+          <p className="relative z-10 text-lg leading-8 text-black/75">
+            “{review.text}”
+          </p>
+
+          <div className="relative z-10 mt-10 border-t border-black/10 pt-6">
+            <h4
+              className="text-lg font-black uppercase"
+              style={{
+                fontFamily: "Benzin, sans-serif",
+              }}
+            >
+              {review.author}
+            </h4>
+
+            <p className="mt-2 text-sm uppercase tracking-[0.18em] text-black/40">
+              Verified Feedback
+            </p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+      <footer className="relative z-10 border-t border-black/10 px-6 py-10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
+          <h3
+            className="text-xl font-black uppercase tracking-[0.35em]"
+            style={{
+              fontFamily: "Benzin, sans-serif",
+            }}
+          >
+            WAN FLO1D
+          </h3>
+
+          <p className="text-sm text-black/40">
+            © 2026 — Crafted with precision.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </footer>
     </div>
   );
 }
