@@ -215,20 +215,6 @@ const works: Work[] = [
       "/works/artiz/artiz4.jpg",
     ],
   },
-  {
-    title: "STUDIAU7",
-    description:
-      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
-    stack: [
-      "Django",
-    ],
-    price: "$500+",
-    hero: "/works/artiz/artiz4.jpg",
-    gallery: [
-      "/works/artiz/artiz1.jpg",
-      "/works/artiz/artiz2.jpg",
-    ],
-  },
 ];
 
 const companies: string[] = [
@@ -467,6 +453,7 @@ export default function Home() {
 
   const t = useMemo(() => translations[lang], [lang]);
   const services: ServiceItem[] = t.services.items;
+  const navTargetIds = ["hero", "projects", "services", "contact"] as const;
 
   // LENIS SMOOTH SCROLL
   useEffect(() => {
@@ -596,15 +583,16 @@ export default function Home() {
                 unoptimized
               />
             <nav className="hidden gap-8 md:flex">
-              {t.nav.map((item) => (
-                <button
+              {t.nav.map((item, index) => (
+                <a
                   key={item}
+                  href={`#${navTargetIds[index]}`}
                   className="group relative text-sm font-medium text-black/60 transition-all hover:text-black"
                 >
                   {item}
 
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-black transition-all duration-300 group-hover:w-full" />
-                </button>
+                </a>
               ))}
             </nav>
           </div>
@@ -641,7 +629,7 @@ export default function Home() {
         </motion.div>
       </header>
 
-      <section className="relative z-10 flex min-h-screen items-center px-6 pt-32">
+      <section id="hero" className="relative z-10 flex min-h-screen items-center px-6 pt-32">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-20 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, y: 80 }}
@@ -671,36 +659,46 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button className="group flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm font-medium text-white transition-all hover:scale-105">
+              <a
+                href="https://t.me/wanflo1dceo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm font-medium text-white transition-all hover:scale-105"
+              >
                 {t.button}
 
                 <ArrowUpRight
                   size={18}
                   className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
                 />
-              </button>
+              </a>
 
-              <button className="rounded-full border border-black/10 bg-white/60 px-7 py-4 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white">
+              <a
+                href="https://t.me/wanflo1dceo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-black/10 bg-white/60 px-7 py-4 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white"
+              >
                 {t.about}
-              </button>
+              </a>
             </div>
             <div className="flex items-center gap-3">
               {[
                 {
                   icon: FaGithub,
-                  href: "https://github.com/yourusername",
+                  href: "https://t.me/wanflo1dceo",
                 },
                 {
                   icon: FaTelegram,
-                  href: "https://t.me/yourusername",
+                  href: "https://t.me/wanflo1dceo",
                 },
                 {
                   icon: FaYoutube,
-                  href: "https://youtube.com/@yourusername",
+                  href: "https://t.me/wanflo1dceo",
                 },
                 {
                   icon: FaInstagram,
-                  href: "https://instagram.com/yourusername",
+                  href: "https://t.me/wanflo1dceo",
                 },
               ].map((item, i) => {
                 const Icon = item.icon;
@@ -819,7 +817,7 @@ export default function Home() {
             transition={{ duration: 0.7 }}
             className="overflow-hidden rounded-[42px] border border-white/40 bg-white/40 p-5 shadow-[0_10px_60px_rgba(0,0,0,0.12)] backdrop-blur-2xl"
           >
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(360px,1fr)_minmax(320px,0.9fr)]">
               <div>
                 <div
                   role="button"
@@ -847,7 +845,7 @@ export default function Home() {
                     </p>
 
                     <h3
-                      className="text-4xl font-black uppercase text-white"
+                      className="text-4xl font-black uppercase text-white max-w-[60%] break-words whitespace-normal"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
@@ -887,7 +885,7 @@ export default function Home() {
                   </div>
 
                   <h3
-                    className="lg:text-5xl text-4xl font-black uppercase leading-[1]"
+                    className="lg:text-5xl text-4xl font-black uppercase leading-[1] break-words"
                     style={{
                       fontFamily: "Benzin, sans-serif",
                     }}
@@ -933,25 +931,35 @@ export default function Home() {
                 </div>
 
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                  <button className="group flex items-center justify-center gap-3 rounded-full bg-black px-7 py-5 text-sm font-medium text-white transition-all hover:scale-[1.03]">
-                    {t.orderSimilar}
+                    <a
+                      href="https://t.me/wanflo1dceo"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-center gap-3 rounded-full bg-black px-7 py-5 text-sm font-medium text-white transition-all hover:scale-[1.03]"
+                    >
+                      {t.orderSimilar}
 
-                    <ExternalLink
-                      size={18}
-                      className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
-                    />
-                  </button>
+                      <ExternalLink
+                        size={18}
+                        className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+                      />
+                    </a>
 
-                  <button className="rounded-full border border-black/10 bg-white/60 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white">
-                    {t.fullCase}
-                  </button>
+                    <a
+                      href="https://t.me/wanflo1dceo"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full border border-black/10 bg-white/60 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white"
+                    >
+                      {t.fullCase}
+                    </a>
                 </div>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
-      <section className="relative z-10 px-6 py-8">
+      <section id="services" className="relative z-10 px-6 py-8">
         <div className="mx-auto max-w-7xl">
           <div className="mb-20 max-w-3xl">
             <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
@@ -1021,20 +1029,26 @@ export default function Home() {
                     ))}
                   </div>
 
-                  <button className="mt-10 flex w-full items-center justify-center gap-3 rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02]">
+                  <a
+                    href="https://t.me/wanflo1dceo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-10 flex w-full items-center justify-center gap-3 rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02]"
+                  >
                     {t.orderService}
 
                     <ArrowUpRight
                       size={18}
                       className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
                     />
-                  </button>
+                  </a>
                 </div>
               </motion.div>
             ))}
           </div>
 
           <motion.div
+            id="contact"
             initial={{ opacity: 0, y: 80 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1069,8 +1083,9 @@ export default function Home() {
 
               <div className="flex flex-col gap-5">
                 <a
-                  href="https://t.me/yourusername"
+                  href="https://t.me/wanflo1dceo"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
                 >
                   <div>
@@ -1084,7 +1099,7 @@ export default function Home() {
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
-                      @wanflo1d
+                      @wanflo1dceo
                     </h4>
                   </div>
 
@@ -1092,7 +1107,9 @@ export default function Home() {
                 </a>
 
                 <a
-                  href="mailto:hello@flo1d.store"
+                  href="https://t.me/wanflo1dceo"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
                 >
                   <div>
@@ -1106,7 +1123,7 @@ export default function Home() {
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
-                      flo1d@gmail.com
+                      @wanflo1dceo
                     </h4>
                   </div>
 
@@ -1114,8 +1131,9 @@ export default function Home() {
                 </a>
 
                 <a
-                  href="https://instagram.com/yourusername"
+                  href="https://t.me/wanflo1dceo"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
                 >
                   <div>
@@ -1129,7 +1147,7 @@ export default function Home() {
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
-                      @wanflo1d
+                      @wanflo1dceo
                     </h4>
                   </div>
 
@@ -1241,8 +1259,9 @@ export default function Home() {
 
                 <div className="mt-14 flex flex-col gap-4 sm:flex-row">
                   <a
-                    href="https://t.me/yourusername"
+                    href="https://t.me/wanflo1dceo"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="group flex items-center justify-center gap-3 rounded-full bg-white px-7 py-5 text-sm font-medium text-black transition-all hover:scale-[1.03]"
                   >
                     {t.buyAd}
@@ -1253,9 +1272,14 @@ export default function Home() {
                     />
                   </a>
 
-                  <button className="rounded-full border border-white/10 bg-white/5 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-white hover:text-black">
+                  <a
+                    href="https://t.me/wanflo1dceo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-white/10 bg-white/5 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+                  >
                     {t.mediaKit}
-                  </button>
+                  </a>
                 </div>
               </div>
             </motion.div>
@@ -1309,8 +1333,9 @@ export default function Home() {
                   </div>
 
                   <a
-                    href="https://t.me/yourusername"
+                    href="https://t.me/wanflo1dceo"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="group mt-10 flex items-center justify-between rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all hover:scale-[1.02]"
                   >
                     Order Telegram Ad
@@ -1368,7 +1393,9 @@ export default function Home() {
                   </div>
 
                   <a
-                    href="mailto:hello@flo1d.store"
+                    href="https://t.me/wanflo1dceo"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="group mt-10 flex items-center justify-between rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all hover:scale-[1.02]"
                   >
                     Request YouTube Ad
