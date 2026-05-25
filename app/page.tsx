@@ -10,7 +10,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { Maximize2 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import {
   FaGithub,
@@ -20,8 +20,85 @@ import {
 } from "react-icons/fa";
 import Lightbox from "./components/lightbox";
 
+type Language = "en" | "ru";
 
-const works = [
+interface Work {
+  title: string;
+  description: string;
+  stack: string[];
+  price: string;
+  hero: string;
+  gallery: string[];
+}
+
+interface ServiceItem {
+  title: string;
+  description: string;
+  price: string;
+  tags: string[];
+}
+
+interface Translations {
+  heroTitle: string;
+  heroSubtitle: string;
+  heroDescription: string;
+  nav: string[];
+  about: string;
+  projects: string;
+  portfolioLabel: string;
+  contact: string;
+  button: string;
+  premiumProject: string;
+  customDevelopment: string;
+  stack: string;
+  startingPrice: string;
+  orderSimilar: string;
+  fullCase: string;
+  servicesLabel: string;
+  servicesTitleLine1: string;
+  servicesTitleLine2: string;
+  servicesDescription: string;
+  services: {
+    items: ServiceItem[];
+  };
+  premiumLabel: string;
+  orderService: string;
+  contactLabel: string;
+  contactTitleLine1: string;
+  contactTitleLine2: string;
+  contactTitleLine3: string;
+  contactDescription: string;
+  telegramLabel: string;
+  emailLabel: string;
+  instagramLabel: string;
+  advertisingLabel: string;
+  advertisingTitleLine1: string;
+  advertisingTitleLine2: string;
+  advertisingTitleLine3: string;
+  advertisingDescription: string;
+  mainPlacement: string;
+  ecosystemLabel: string;
+  buyAd: string;
+  mediaKit: string;
+  feedbackLabel: string;
+  feedbackTitleLine1: string;
+  feedbackTitleLine2: string;
+  feedbackDescription: string;
+  positiveLabel: string;
+  neutralLabel: string;
+  verifiedFeedback: string;
+  footerBrand: string;
+  footerCopyright: string;
+}
+
+interface Review {
+  text: string;
+  author: string;
+  source: string;
+  positive: boolean;
+}
+
+const works: Work[] = [
 
   {
     title: "ZAMDA",
@@ -154,7 +231,7 @@ const works = [
   },
 ];
 
-const companies = [
+const companies: string[] = [
   "SeaMusic",
   "БАРС",
   "ЦСМС",
@@ -166,7 +243,7 @@ const companies = [
   "SpacyCookingHere",
 ];
 
-const translations = {
+const translations: Record<Language, Translations> = {
   en: {
     heroTitle: "wan flo1d's store",
     heroSubtitle:
@@ -276,9 +353,9 @@ const translations = {
   ru: {
     heroTitle: "wan flo1d's store",
     heroSubtitle:
-      "Креативный разработчик, продюсер и дизайнер, создающий футуристичные digital-проекты.",
+      "Fullstack-разработчик & AI-специалист с опытом более 5 лет",
     heroDescription:
-      "Я создаю premium-интерфейсы, музыкальные платформы и визуальные системы с акцентом на эстетику и эмоции.",
+      "Я создаю современные маркетплейсы, AI-сервисы и многие сложные платформы с акцентом на будущее. Выстраиваю архитектуру твоего цифрового присутствия с нуля, без шаблонов и конструкторов.",
     nav: ["Главная", "Проекты", "Обо мне", "Контакты"],
     about: "Обо Мне",
     projects: "Избранные Работы",
@@ -382,15 +459,14 @@ const translations = {
 };
 
 export default function Home() {
-  const [lang, setLang] = useState<"en" | "ru">("en");
-  const [current, setCurrent] = useState(0);
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const [lang, setLang] = useState<Language>("en");
+  const [current, setCurrent] = useState<number>(0);
+  const [selectedImage, setSelectedImage] = useState<number>(0);
+  const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number>(0);
 
   const t = useMemo(() => translations[lang], [lang]);
-  const services = t.services?.items || [];
+  const services: ServiceItem[] = t.services.items;
 
   // LENIS SMOOTH SCROLL
   useEffect(() => {
@@ -437,23 +513,23 @@ export default function Home() {
   }, [mouseX, mouseY]);
 
   const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % works.length);
+    setCurrent((prev: number) => (prev + 1) % works.length);
     setSelectedImage(0);
   };
 
   const prevSlide = () => {
-    setCurrent((prev) => (prev - 1 + works.length) % works.length);
+    setCurrent((prev: number) => (prev - 1 + works.length) % works.length);
     setSelectedImage(0);
   };
 
   // Autoplay removed per user request — carousel advances only via controls.
 
-  const openLightbox = (index: number) => {
+  const openLightbox = (index: number): void => {
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = (): void => {
     setLightboxOpen(false);
     setSelectedImage(lightboxIndex);
   };
@@ -701,7 +777,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <section ref={carouselRef} className="relative z-10 px-6 py-32">
+      <section className="relative z-10 px-6 py-32">
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 flex items-center justify-between">
             <div>
@@ -710,7 +786,7 @@ export default function Home() {
               </p>
 
               <h2
-                className="lg:text-5xl text-3xl pr-2 font-black uppercase"
+                className="lg:text-5xl text-2xl pr-2 font-black uppercase"
                 style={{
                   fontFamily: "Benzin, sans-serif",
                 }}
@@ -811,7 +887,7 @@ export default function Home() {
                   </div>
 
                   <h3
-                    className="text-5xl font-black uppercase leading-[1]"
+                    className="lg:text-5xl text-4xl font-black uppercase leading-[1]"
                     style={{
                       fontFamily: "Benzin, sans-serif",
                     }}
@@ -846,7 +922,7 @@ export default function Home() {
                     </p>
 
                     <h4
-                      className="mt-3 text-5xl font-black"
+                      className="mt-3 lg:text-5xl text-4xl font-black"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
@@ -883,7 +959,7 @@ export default function Home() {
             </p>
 
             <h2
-              className="text-5xl font-black uppercase leading-[1]"
+              className="lg:text-5xl text-4xl font-black uppercase leading-[1]"
               style={{
                 fontFamily: "Benzin, sans-serif",
               }}
@@ -922,7 +998,7 @@ export default function Home() {
                   </div>
 
                   <h3
-                    className="text-3xl font-black uppercase leading-[1.05]"
+                    className="lg:text-3xl text-2xl font-black uppercase leading-[1.05]"
                     style={{
                       fontFamily: "Benzin, sans-serif",
                     }}
@@ -974,7 +1050,7 @@ export default function Home() {
                 </p>
 
                 <h3
-                  className="lg:text-5xl text-4xl font-black uppercase leading-[1]"
+                  className="lg:text-5xl text-3xl font-black uppercase leading-[1]"
                   style={{
                     fontFamily: "Benzin, sans-serif",
                   }}
@@ -1072,7 +1148,7 @@ export default function Home() {
             </p>
 
             <h2
-              className="text-5xl font-black uppercase leading-[1]"
+              className="lg:text-5xl text-4xl font-black uppercase leading-[1]"
               style={{
                 fontFamily: "Benzin, sans-serif",
               }}
@@ -1111,7 +1187,7 @@ export default function Home() {
                 </div>
 
                 <h3
-                  className="mt-10 lg:text-6xl text-5xl font-black uppercase leading-[0.95]"
+                  className="mt-10 lg:text-6xl text-4xl font-black uppercase leading-[0.95]"
                   style={{
                     fontFamily: "Benzin, sans-serif",
                   }}
@@ -1152,7 +1228,7 @@ export default function Home() {
                       </p>
 
                       <h4
-                        className="mt-3 text-3xl font-black uppercase"
+                        className="mt-3 lg:text-3xl text-2xl font-black uppercase"
                         style={{
                           fontFamily: "Benzin, sans-serif",
                         }}
@@ -1206,7 +1282,7 @@ export default function Home() {
                   </div>
 
                   <h3
-                    className="text-4xl font-black uppercase leading-[1]"
+                    className="lg:text-4xl text-3xl font-black uppercase leading-[1]"
                     style={{
                       fontFamily: "Benzin, sans-serif",
                     }}
@@ -1265,7 +1341,7 @@ export default function Home() {
                   </div>
 
                   <h3
-                    className="text-4xl font-black uppercase leading-[1]"
+                    className="lg:text-4xl text-3xl font-black uppercase leading-[1]"
                     style={{
                       fontFamily: "Benzin, sans-serif",
                     }}
@@ -1436,7 +1512,7 @@ export default function Home() {
       <footer className="relative z-10 border-t border-black/10 px-6 py-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
           <h3
-            className="text-xl font-black uppercase tracking-[0.35em]"
+            className="text-xl font-black uppercase "
             style={{
               fontFamily: "Benzin, sans-serif",
             }}

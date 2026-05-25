@@ -1,21 +1,29 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { type TouchEvent, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, ExternalLink, X, Maximize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+
+interface LightboxProps {
+  images: string[];
+  currentIndex: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}
 
 // Компонент для полноэкранного просмотра
-const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }) => {
+const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxProps) => {
   // Обработка свайпов на мобильных
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
+  const [touchStart, setTouchStart] = useState<number>(0);
+  const [touchEnd, setTouchEnd] = useState<number>(0);
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
@@ -32,7 +40,7 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }) => {
 
   // Обработка клавиш
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") onPrev();
       if (e.key === "ArrowRight") onNext();
