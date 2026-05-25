@@ -9,6 +9,7 @@ import {
   Globe,
   ExternalLink,
 } from "lucide-react";
+import { Maximize2 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import {
@@ -17,6 +18,7 @@ import {
   FaYoutube,
   FaInstagram,
 } from "react-icons/fa";
+import Lightbox from "./components/lightbox";
 
 
 const works = [
@@ -171,10 +173,105 @@ const translations = {
       "Creative developer, producer & designer crafting futuristic digital experiences.",
     heroDescription:
       "I build premium interfaces, music ecosystems and visual systems focused on aesthetics, emotion and performance.",
+    nav: ["Home", "Projects", "About", "Contact"],
     about: "About",
     projects: "Selected Works",
+    portfolioLabel: "Portfolio",
     contact: "Available for collaborations",
     button: "Explore Projects",
+    premiumProject: "Premium Project",
+    customDevelopment: "Custom Development",
+    stack: "Stack",
+    startingPrice: "Starting Price",
+    orderSimilar: "Order Similar Project",
+    fullCase: "Full Case Study",
+    servicesLabel: "Services",
+    servicesTitleLine1: "DIGITAL PRODUCTS",
+    servicesTitleLine2: "& CREATIVE SYSTEMS",
+    servicesDescription:
+      "Premium custom development focused on aesthetics, performance and originality. Every project is built from scratch without templates or builders.",
+    services: {
+      items: [
+        {
+          title: "LANDING PAGE",
+          description:
+            "High-converting premium landing pages with smooth animations, strong visual identity and modern UX.",
+          price: "from $400",
+          tags: ["Next.js", "Framer Motion", "Tailwind"],
+        },
+
+        {
+          title: "BUSINESS WEBSITE",
+          description:
+            "Minimal and stylish websites for brands, artists, startups and creative studios.",
+          price: "from $700",
+          tags: ["Full Responsive", "SEO", "CMS"],
+        },
+
+        {
+          title: "AI SCRIPT / ML",
+          description:
+            "Custom AI systems, automation scripts, computer vision, chatbots and machine learning tools.",
+          price: "from $1200",
+          tags: ["Python", "OpenCV", "FastAPI"],
+        },
+
+        {
+          title: "MARKETPLACE",
+          description:
+            "Complex platforms with payments, subscriptions, dashboards, analytics and social systems.",
+          price: "from $3500",
+          tags: ["Fullstack", "PostgreSQL", "Redis"],
+        },
+
+        {
+          title: "CUSTOM WEB APP",
+          description:
+            "Completely custom systems and interfaces tailored specifically for your business logic.",
+          price: "custom",
+          tags: ["Architecture", "Scalable", "Secure"],
+        },
+
+        {
+          title: "UI / BRAND DESIGN",
+          description:
+            "Premium visual identity, futuristic interfaces and creative direction for digital brands.",
+          price: "from $300",
+          tags: ["Figma", "Branding", "Creative"],
+        },
+      ],
+    },
+    premiumLabel: "Premium",
+    orderService: "Order Service",
+    contactLabel: "Contact",
+    contactTitleLine1: "LET'S BUILD",
+    contactTitleLine2: "SOMETHING",
+    contactTitleLine3: "DIFFERENT.",
+    contactDescription:
+      "If you need a premium website, marketplace, AI system or custom digital product — contact me directly.",
+    telegramLabel: "Telegram",
+    emailLabel: "Email",
+    instagramLabel: "Instagram",
+    advertisingLabel: "Advertising",
+    advertisingTitleLine1: "PROMOTE YOUR",
+    advertisingTitleLine2: "MUSIC, BRAND",
+    advertisingTitleLine3: "OR PRODUCT",
+    advertisingDescription:
+      "Advertising placements across the SeaMusic ecosystem, Telegram channels and YouTube integrations focused on music, producers, artists and digital culture.",
+    mainPlacement: "Main Placement",
+    ecosystemLabel: "SeaMusic Ecosystem",
+    buyAd: "Buy Advertisement",
+    mediaKit: "Media Kit",
+    feedbackLabel: "Feedback",
+    feedbackTitleLine1: "PEOPLE",
+    feedbackTitleLine2: "TALK.",
+    feedbackDescription:
+      "Real feedback from artists, creators, clients and people who worked with me on different projects and systems.",
+    positiveLabel: "Positive",
+    neutralLabel: "Neutral",
+    verifiedFeedback: "Verified Feedback",
+    footerBrand: "WAN FLO1D",
+    footerCopyright: "© 2026 — Crafted with precision.",
   },
   ru: {
     heroTitle: "wan flo1d's store",
@@ -182,10 +279,105 @@ const translations = {
       "Креативный разработчик, продюсер и дизайнер, создающий футуристичные digital-проекты.",
     heroDescription:
       "Я создаю premium-интерфейсы, музыкальные платформы и визуальные системы с акцентом на эстетику и эмоции.",
+    nav: ["Главная", "Проекты", "Обо мне", "Контакты"],
     about: "Обо Мне",
     projects: "Избранные Работы",
+    portfolioLabel: "Портфолио",
     contact: "Открыт для коллабораций",
     button: "Смотреть Проекты",
+    premiumProject: "Премиум проект",
+    customDevelopment: "Индивидуальная разработка",
+    stack: "Стек",
+    startingPrice: "Стартовая цена",
+    orderSimilar: "Заказать похожий проект",
+    fullCase: "Полный кейс",
+    servicesLabel: "Услуги",
+    servicesTitleLine1: "DIGITAL-ПРОДУКТЫ",
+    servicesTitleLine2: "& КРЕАТИВНЫЕ СИСТЕМЫ",
+    servicesDescription:
+      "Премиум кастомная разработка с фокусом на эстетику, производительность и оригинальность. Каждый проект делается с нуля без шаблонов.",
+    services: {
+      items: [
+        {
+          title: "LANDING PAGE",
+          description:
+            "Высоко-конверсионные премиум лендинги с плавной анимацией, сильной визуальной идентичностью и современным UX.",
+          price: "от $400",
+          tags: ["Next.js", "Framer Motion", "Tailwind"],
+        },
+
+        {
+          title: "BUSINESS WEBSITE",
+          description:
+            "Минималистичные и стильные сайты для брендов, артистов, стартапов и креативных студий.",
+          price: "от $700",
+          tags: ["Адаптивность", "SEO", "CMS"],
+        },
+
+        {
+          title: "AI SCRIPT / ML",
+          description:
+            "Кастомные AI-системы, скрипты автоматизации, компьютерное зрение, чатботы и ML-инструменты.",
+          price: "от $1200",
+          tags: ["Python", "OpenCV", "FastAPI"],
+        },
+
+        {
+          title: "MARKETPLACE",
+          description:
+            "Сложные платформы с оплатами, подписками, дашбордами, аналитикой и социальными системами.",
+          price: "от $3500",
+          tags: ["Fullstack", "PostgreSQL", "Redis"],
+        },
+
+        {
+          title: "CUSTOM WEB APP",
+          description:
+            "Полностью кастомные системы и интерфейсы, подогнанные под вашу бизнес-логику.",
+          price: "custom",
+          tags: ["Архитектура", "Масштабируемо", "Безопасно"],
+        },
+
+        {
+          title: "UI / BRAND DESIGN",
+          description:
+            "Премиум визуальная идентичность, футуристичные интерфейсы и креативное направление для цифровых брендов.",
+          price: "от $300",
+          tags: ["Figma", "Branding", "Creative"],
+        },
+      ],
+    },
+    premiumLabel: "Премиум",
+    orderService: "Заказать услугу",
+    contactLabel: "Контакты",
+    contactTitleLine1: "ДАВАЙ ПОСТРОИМ",
+    contactTitleLine2: "ЧТО-ТО",
+    contactTitleLine3: "ДРУГОЕ.",
+    contactDescription:
+      "Если вам нужен премиум-сайт, маркетплейс, AI-система или кастомный цифровой продукт — свяжитесь со мной напрямую.",
+    telegramLabel: "Telegram",
+    emailLabel: "Email",
+    instagramLabel: "Instagram",
+    advertisingLabel: "Реклама",
+    advertisingTitleLine1: "ПРОДВИГАЙТЕ",
+    advertisingTitleLine2: "ВАШУ МУЗЫКУ,",
+    advertisingTitleLine3: "БРЕНД ИЛИ ТОВАР",
+    advertisingDescription:
+      "Рекламные размещения в экосистеме SeaMusic, Telegram-каналах и интеграциях YouTube, ориентированные на музыку и цифровую культуру.",
+    mainPlacement: "Главное размещение",
+    ecosystemLabel: "Экосистема SeaMusic",
+    buyAd: "Купить рекламу",
+    mediaKit: "Media Kit",
+    feedbackLabel: "Отзывы",
+    feedbackTitleLine1: "ЛЮДИ",
+    feedbackTitleLine2: "ГОВОРЯТ.",
+    feedbackDescription:
+      "Реальные отзывы от артистов, клиентов и людей, с которыми я работал над разными проектами и системами.",
+    positiveLabel: "Положительно",
+    neutralLabel: "Нейтрально",
+    verifiedFeedback: "Проверенный отзыв",
+    footerBrand: "WAN FLO1D",
+    footerCopyright: "© 2026 — Сделано с точностью.",
   },
 };
 
@@ -193,8 +385,12 @@ export default function Home() {
   const [lang, setLang] = useState<"en" | "ru">("en");
   const [current, setCurrent] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
 
   const t = useMemo(() => translations[lang], [lang]);
+  const services = t.services?.items || [];
 
   // LENIS SMOOTH SCROLL
   useEffect(() => {
@@ -250,6 +446,26 @@ export default function Home() {
     setSelectedImage(0);
   };
 
+  // Autoplay removed per user request — carousel advances only via controls.
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    setSelectedImage(lightboxIndex);
+  };
+
+  const lbPrev = () => {
+    setLightboxIndex((i) => (i - 1 + works[current].gallery.length) % works[current].gallery.length);
+  };
+
+  const lbNext = () => {
+    setLightboxIndex((i) => (i + 1) % works[current].gallery.length);
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f7f7f5] text-black">
       <motion.div
@@ -277,13 +493,13 @@ export default function Home() {
           className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-black/10 bg-white/60 px-6 py-4 shadow-[0_8px_40px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
         >
           <div className="flex items-center gap-10">
-            <h1
+            {/* <h1
               className="flex items-center gap-3 text-lg font-black uppercase tracking-[0.1em]"
               style={{
                 fontFamily: "Benzin, sans-serif",
               }}
             >
-              <span className="relative text-black/35 line-through decoration-2">
+              <span className="hidden relative text-black/35 line-through decoration-2">
                 SPACY
               </span>
 
@@ -294,10 +510,17 @@ export default function Home() {
               <span className="text-black/35">
                 STORE
               </span>
-            </h1>
-
+            </h1> */}
+              <Image 
+                src="/1f.png" 
+                alt="" 
+                className="h-14 w-14" 
+                width={56}  
+                height={56}
+                unoptimized
+              />
             <nav className="hidden gap-8 md:flex">
-              {["Home", "Projects", "About", "Contact"].map((item) => (
+              {t.nav.map((item) => (
                 <button
                   key={item}
                   className="group relative text-sm font-medium text-black/60 transition-all hover:text-black"
@@ -441,6 +664,19 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+      {lightboxOpen && (
+        <Lightbox
+          images={works[current].gallery}
+          currentIndex={lightboxIndex}
+          onClose={closeLightbox}
+          onPrev={() => {
+            setLightboxIndex((i) => (i - 1 + works[current].gallery.length) % works[current].gallery.length);
+          }}
+          onNext={() => {
+            setLightboxIndex((i) => (i + 1) % works[current].gallery.length);
+          }}
+        />
+      )}
       <section className="relative z-10 overflow-hidden border-y border-black/10 bg-white/40 py-6 mt-8 backdrop-blur-xl">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
@@ -465,16 +701,16 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <section className="relative z-10 px-6 py-32">
+      <section ref={carouselRef} className="relative z-10 px-6 py-32">
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 flex items-center justify-between">
             <div>
               <p className="mb-3 text-sm uppercase tracking-[0.35em] text-black/40">
-                Portfolio
+                {t.portfolioLabel}
               </p>
 
               <h2
-                className="text-5xl font-black uppercase"
+                className="lg:text-5xl text-3xl pr-2 font-black uppercase"
                 style={{
                   fontFamily: "Benzin, sans-serif",
                 }}
@@ -509,20 +745,29 @@ export default function Home() {
           >
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_0.8fr]">
               <div>
-                <div className="group relative overflow-hidden rounded-[34px]">
+                <div
+                  role="button"
+                  onClick={() => openLightbox(selectedImage)}
+                  className="group relative overflow-hidden rounded-[34px] cursor-zoom-in"
+                >
                   <Image
                     src={works[current].gallery[selectedImage]}
                     alt={works[current].title}
                     width={1800}
                     height={1200}
-                    className="h-[500px] w-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
+                    className="lg:h-[500px] h-[300px] w-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+                  <div className="absolute right-4 top-4 z-20 hidden items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-white backdrop-blur-sm transition-opacity group-hover:flex">
+                    <Maximize2 size={16} />
+                    <span className="text-xs uppercase">Zoom</span>
+                  </div>
 
                   <div className="absolute bottom-8 left-8">
                     <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/60">
-                      Premium Project
+                      {t.premiumProject}
                     </p>
 
                     <h3
@@ -536,12 +781,12 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-5 grid grid-cols-4 gap-4">
+                <div className="mt-5 grid lg:grid-cols-4 grid-cols-3 gap-4">
                   {works[current].gallery.map((img, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
-                      className={`overflow-hidden rounded-[24px] border transition-all ${
+                      className={`overflow-hidden lg:rounded-[24px] rounded-2xl border transition-all ${
                         selectedImage === index
                           ? "border-black shadow-xl"
                           : "border-black/10"
@@ -552,7 +797,7 @@ export default function Home() {
                         alt=""
                         width={400}
                         height={300}
-                        className="h-[110px] w-full object-cover transition-all duration-500 hover:scale-105"
+                        className="lg:h-[110px] h-[50px] w-full object-cover transition-all duration-500 hover:scale-105"
                       />
                     </button>
                   ))}
@@ -562,7 +807,7 @@ export default function Home() {
               <div className="flex flex-col justify-between">
                 <div>
                   <div className="mb-8 inline-flex rounded-full border border-black/10 bg-white/70 px-5 py-2 text-sm backdrop-blur-xl">
-                    Custom Development
+                    {t.customDevelopment}
                   </div>
 
                   <h3
@@ -580,7 +825,7 @@ export default function Home() {
 
                   <div className="mt-10">
                     <p className="mb-5 text-sm uppercase tracking-[0.3em] text-black/40">
-                      Stack
+                      {t.stack}
                     </p>
 
                     <div className="flex flex-wrap gap-3">
@@ -597,7 +842,7 @@ export default function Home() {
 
                   <div className="mt-10 rounded-[30px] border border-black/10 bg-black p-8 text-white">
                     <p className="text-sm uppercase tracking-[0.3em] text-white/50">
-                      Starting Price
+                      {t.startingPrice}
                     </p>
 
                     <h4
@@ -613,7 +858,7 @@ export default function Home() {
 
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                   <button className="group flex items-center justify-center gap-3 rounded-full bg-black px-7 py-5 text-sm font-medium text-white transition-all hover:scale-[1.03]">
-                    Order Similar Project
+                    {t.orderSimilar}
 
                     <ExternalLink
                       size={18}
@@ -622,7 +867,7 @@ export default function Home() {
                   </button>
 
                   <button className="rounded-full border border-black/10 bg-white/60 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white">
-                    Full Case Study
+                    {t.fullCase}
                   </button>
                 </div>
               </div>
@@ -634,7 +879,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-20 max-w-3xl">
             <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
-              Services
+              {t.servicesLabel}
             </p>
 
             <h2
@@ -643,68 +888,18 @@ export default function Home() {
                 fontFamily: "Benzin, sans-serif",
               }}
             >
-              DIGITAL PRODUCTS
+              {t.servicesTitleLine1}
               <br />
-              & CREATIVE SYSTEMS
+              {t.servicesTitleLine2}
             </h2>
 
             <p className="mt-8 text-lg leading-8 text-black/55">
-              Premium custom development focused on aesthetics, performance and
-              originality. Every project is built from scratch without templates or
-              builders.
+              {t.servicesDescription}
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {[
-              {
-                title: "LANDING PAGE",
-                description:
-                  "High-converting premium landing pages with smooth animations, strong visual identity and modern UX.",
-                price: "from $400",
-                tags: ["Next.js", "Framer Motion", "Tailwind"],
-              },
-
-              {
-                title: "BUSINESS WEBSITE",
-                description:
-                  "Minimal and stylish websites for brands, artists, startups and creative studios.",
-                price: "from $700",
-                tags: ["Full Responsive", "SEO", "CMS"],
-              },
-
-              {
-                title: "AI SCRIPT / ML",
-                description:
-                  "Custom AI systems, automation scripts, computer vision, chatbots and machine learning tools.",
-                price: "from $1200",
-                tags: ["Python", "OpenCV", "FastAPI"],
-              },
-
-              {
-                title: "MARKETPLACE",
-                description:
-                  "Complex platforms with payments, subscriptions, dashboards, analytics and social systems.",
-                price: "from $3500",
-                tags: ["Fullstack", "PostgreSQL", "Redis"],
-              },
-
-              {
-                title: "CUSTOM WEB APP",
-                description:
-                  "Completely custom systems and interfaces tailored specifically for your business logic.",
-                price: "custom",
-                tags: ["Architecture", "Scalable", "Secure"],
-              },
-
-              {
-                title: "UI / BRAND DESIGN",
-                description:
-                  "Premium visual identity, futuristic interfaces and creative direction for digital brands.",
-                price: "from $300",
-                tags: ["Figma", "Branding", "Creative"],
-              },
-            ].map((service, index) => (
+            {services.map((service, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 70 }}
@@ -718,7 +913,7 @@ export default function Home() {
                 <div className="relative z-10">
                   <div className="mb-8 flex items-start justify-between">
                     <div className="rounded-full border border-black/10 bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.2em] backdrop-blur-xl">
-                      Premium
+                      {t.premiumLabel}
                     </div>
 
                     <p className="text-sm uppercase tracking-[0.2em] text-black/40">
@@ -751,7 +946,7 @@ export default function Home() {
                   </div>
 
                   <button className="mt-10 flex w-full items-center justify-center gap-3 rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02]">
-                    Order Service
+                    {t.orderService}
 
                     <ArrowUpRight
                       size={18}
@@ -775,25 +970,24 @@ export default function Home() {
             <div className="relative z-10 grid grid-cols-1 gap-14 lg:grid-cols-2">
               <div>
                 <p className="mb-5 text-sm uppercase tracking-[0.35em] text-white/40">
-                  Contact
+                  {t.contactLabel}
                 </p>
 
                 <h3
-                  className="text-5xl font-black uppercase leading-[1]"
+                  className="lg:text-5xl text-4xl font-black uppercase leading-[1]"
                   style={{
                     fontFamily: "Benzin, sans-serif",
                   }}
                 >
-                  LET'S BUILD
+                  {t.contactTitleLine1}
                   <br />
-                  SOMETHING
+                  {t.contactTitleLine2}
                   <br />
-                  DIFFERENT.
+                  {t.contactTitleLine3}
                 </h3>
 
                 <p className="mt-8 max-w-xl text-lg leading-8 text-white/60">
-                  If you need a premium website, marketplace, AI system or custom
-                  digital product — contact me directly.
+                  {t.contactDescription}
                 </p>
               </div>
 
@@ -805,11 +999,11 @@ export default function Home() {
                 >
                   <div>
                     <p className="text-xs uppercase tracking-[0.25em] opacity-50">
-                      Telegram
+                      {t.telegramLabel}
                     </p>
 
                     <h4
-                      className="mt-2 text-2xl font-black uppercase"
+                      className="mt-2 lg:text-2xl text-lg font-black uppercase"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
@@ -827,16 +1021,16 @@ export default function Home() {
                 >
                   <div>
                     <p className="text-xs uppercase tracking-[0.25em] opacity-50">
-                      Email
+                      {t.emailLabel}
                     </p>
 
                     <h4
-                      className="mt-2 text-2xl font-black uppercase"
+                      className="mt-2 lg:text-2xl text-lg font-black uppercase"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
-                      wanflo1d@gmail.com
+                      flo1d@gmail.com
                     </h4>
                   </div>
 
@@ -850,11 +1044,11 @@ export default function Home() {
                 >
                   <div>
                     <p className="text-xs uppercase tracking-[0.25em] opacity-50">
-                      Instagram
+                      {t.instagramLabel}
                     </p>
 
                     <h4
-                      className="mt-2 text-2xl font-black uppercase"
+                      className="mt-2 lg:text-2xl text-lg font-black uppercase"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
@@ -874,7 +1068,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-20 max-w-4xl">
             <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
-              Advertising
+              {t.advertisingLabel}
             </p>
 
             <h2
@@ -883,17 +1077,15 @@ export default function Home() {
                 fontFamily: "Benzin, sans-serif",
               }}
             >
-              PROMOTE YOUR
+              {t.advertisingTitleLine1}
               <br />
-              MUSIC, BRAND
+              {t.advertisingTitleLine2}
               <br />
-              OR PRODUCT
+              {t.advertisingTitleLine3}
             </h2>
 
             <p className="mt-8 max-w-2xl text-lg leading-8 text-black/55">
-              Advertising placements across the SeaMusic ecosystem, Telegram
-              channels and YouTube integrations focused on music, producers,
-              artists and digital culture.
+              {t.advertisingDescription}
             </p>
           </div>
 
@@ -910,16 +1102,16 @@ export default function Home() {
               <div className="relative z-10">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div className="rounded-full border border-white/10 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.25em] backdrop-blur-xl">
-                    Main Placement
+                    {t.mainPlacement}
                   </div>
 
                   <p className="text-sm uppercase tracking-[0.25em] text-white/40">
-                    SeaMusic Ecosystem
+                    {t.ecosystemLabel}
                   </p>
                 </div>
 
                 <h3
-                  className="mt-10 text-6xl font-black uppercase leading-[0.95]"
+                  className="mt-10 lg:text-6xl text-5xl font-black uppercase leading-[0.95]"
                   style={{
                     fontFamily: "Benzin, sans-serif",
                   }}
@@ -977,7 +1169,7 @@ export default function Home() {
                     target="_blank"
                     className="group flex items-center justify-center gap-3 rounded-full bg-white px-7 py-5 text-sm font-medium text-black transition-all hover:scale-[1.03]"
                   >
-                    Buy Advertisement
+                    {t.buyAd}
 
                     <ArrowUpRight
                       size={18}
@@ -986,7 +1178,7 @@ export default function Home() {
                   </a>
 
                   <button className="rounded-full border border-white/10 bg-white/5 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-white hover:text-black">
-                    Media Kit
+                    {t.mediaKit}
                   </button>
                 </div>
               </div>
@@ -1117,7 +1309,7 @@ export default function Home() {
   <div className="mx-auto max-w-7xl">
     <div className="mb-20 max-w-3xl">
       <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
-        Feedback
+        {t.feedbackLabel}
       </p>
 
       <h2
@@ -1126,14 +1318,13 @@ export default function Home() {
           fontFamily: "Benzin, sans-serif",
         }}
       >
-        PEOPLE
+        {t.feedbackTitleLine1}
         <br />
-        TALK.
+        {t.feedbackTitleLine2}
       </h2>
 
       <p className="mt-8 text-lg leading-8 text-black/55">
-        Real feedback from artists, creators, clients and people who worked
-        with me on different projects and systems.
+        {t.feedbackDescription}
       </p>
     </div>
 
@@ -1211,7 +1402,7 @@ export default function Home() {
                   : "border border-black/10 bg-white text-black"
               }`}
             >
-              {review.positive ? "Positive" : "Neutral"}
+              {review.positive ? t.positiveLabel : t.neutralLabel}
             </div>
 
             <p className="text-xs uppercase tracking-[0.2em] text-black/40">
@@ -1234,7 +1425,7 @@ export default function Home() {
             </h4>
 
             <p className="mt-2 text-sm uppercase tracking-[0.18em] text-black/40">
-              Verified Feedback
+              {t.verifiedFeedback}
             </p>
           </div>
         </motion.div>
@@ -1250,11 +1441,11 @@ export default function Home() {
               fontFamily: "Benzin, sans-serif",
             }}
           >
-            WAN FLO1D
+            {t.footerBrand}
           </h3>
 
           <p className="text-sm text-black/40">
-            © 2026 — Crafted with precision.
+            {t.footerCopyright}
           </p>
         </div>
       </footer>
