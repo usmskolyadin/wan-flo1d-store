@@ -103,3 +103,280 @@ html.lenis {
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #05050a 0%, #050505 28%, #030306 100%);
+  color: #f8f9fc;
+  overflow: hidden;
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity 0.9s ease 0.15s;
+}
+
+.intro-overlay--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 22%),
+    linear-gradient(140deg, rgba(255, 255, 255, 0.04), transparent 38%);
+}
+
+.intro-overlay__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 1000px);
+  padding: clamp(1.2rem, 4vw, 2.5rem);
+  box-sizing: border-box;
+}
+
+.intro-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+}
+
+.intro-brand__headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.intro-text {
+  display: inline-block;
+  font-family: "Benzin", Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  color: #f8f9fc;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.08);
+}
+
+.intro-text--strikethrough {
+  font-size: clamp(2.8rem, 8vw, 7rem);
+  position: relative;
+  max-width: 100%;
+}
+
+.intro-text--strikethrough::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 56%;
+  height: 0.18em;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.4));
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: intro-strike 0.82s 0.45s ease-in-out forwards;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 520px) {
+  .intro-text--strikethrough {
+    font-size: 2.4rem;
+    letter-spacing: 0.14em;
+  }
+
+  .intro-text--typed {
+    font-size: 1.8rem;
+    letter-spacing: 0.12em;
+    max-width: 100%;
+  }
+
+  .intro-tagline {
+    font-size: 0.85rem;
+    max-width: 22rem;
+  }
+}
+
+.intro-text--typed {
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  width: 0;
+  max-width: 11ch;
+  overflow: hidden;
+  border-right: 0.12em solid rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  opacity: 0;
+  animation: intro-typing 1.35s 0.95s steps(9, end) forwards;
+}
+
+.intro-text--typed-visible {
+  opacity: 1;
+}
+
+.intro-tagline {
+  margin: 0;
+  max-width: 30rem;
+  color: rgba(248, 249, 252, 0.8);
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: intro-tagline 0.8s 2.2s ease forwards;
+}
+
+@keyframes intro-strike {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes intro-typing {
+  to {
+    width: 11ch;
+    opacity: 1;
+  }
+}
+
+@keyframes intro-tagline {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.vinyl-hero {
+  position: relative;
+  width: min(320px, 100%);
+  height: min(320px, 100%);
+  overflow: visible;
+}
+
+.vinyl-hero::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -24%;
+  width: 220%;
+  height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(circle at top, rgba(0, 0, 0, 0.08), transparent 55%);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.vinyl-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.vinyl-disc {
+  position: absolute;
+  inset: 20px;
+  margin: auto;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  border-radius: 50%;
+  background-color: #040404;
+  background-image: radial-gradient(circle at center, #222 6%, #111 18%, #000 42%), repeating-radial-gradient(circle, rgba(255,255,255,0.02) 0 1px, rgba(0,0,0,0.02) 2px 4px);
+  box-shadow: inset 0 8px 40px rgba(255,255,255,0.02), 0 28px 120px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.vinyl-disc::before {
+  content: "";
+  position: absolute;
+  inset: 28%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 58%);
+  mix-blend-mode: overlay;
+}
+
+.vinyl-disc::after {
+  content: "";
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  border-radius: 50%;
+  background: #121212;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6) inset;
+  z-index: 12;
+}
+
+.vinyl-center {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f7f7f7 8%, #e8e8e8 30%, #d0d0d0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 3px 14px rgba(0, 0, 0, 0.18);
+  z-index: 20;
+}
+
+.vinyl-center__label {
+  width: 68px;
+  text-align: center;
+}
+
+.vinyl-center__title {
+  margin: 0;
+  color: #111;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .vinyl-hero {
+    height: 280px;
+    width: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .vinyl-hero {
+    height: 240px;
+    width: 240px;
+  }
+
+  .vinyl-disc {
+    inset: 16px;
+  }
+
+  .vinyl-center {
+    width: 64px;
+    height: 64px;
+  }
+
+  .vinyl-center__title {
+    font-size: 0.65rem;
+  }
+}
+

@@ -10,7 +10,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { Maximize2 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import {
   FaGithub,
@@ -450,17 +450,20 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
   const [lightboxIndex, setLightboxIndex] = useState<number>(0);
+  const workSectionRef = useRef<HTMLDivElement | null>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const [spin, setSpin] = useState(0);
 
   const t = useMemo(() => translations[lang], [lang]);
   const services: ServiceItem[] = t.services.items;
   const navTargetIds = ["hero", "projects", "services", "contact"] as const;
 
-  // LENIS SMOOTH SCROLL
   useEffect(() => {
     const lenis = new Lenis({
       smoothWheel: true,
       duration: 1.2,
     });
+    lenisRef.current = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -471,6 +474,7 @@ export default function Home() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
@@ -501,20 +505,18 @@ export default function Home() {
 
   const nextSlide = () => {
     setCurrent((prev: number) => (prev + 1) % works.length);
-    setSelectedImage(0);
   };
 
   const prevSlide = () => {
     setCurrent((prev: number) => (prev - 1 + works.length) % works.length);
-    setSelectedImage(0);
   };
-
-  // Autoplay removed per user request — carousel advances only via controls.
 
   const openLightbox = (index: number): void => {
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
+
+  // Autoplay removed per user request — carousel advances only via controls.
 
   const closeLightbox = (): void => {
     setLightboxOpen(false);
@@ -529,9 +531,39 @@ export default function Home() {
     setLightboxIndex((i) => (i + 1) % works[current].gallery.length);
   };
 
+  const [showIntro, setShowIntro] = useState(true);
+  const [fadeIntro, setFadeIntro] = useState(false);
+
+  useEffect(() => {
+    const fadeTimer = window.setTimeout(() => setFadeIntro(true), 2400);
+    const hideTimer = window.setTimeout(() => setShowIntro(false), 3200);
+
+    return () => {
+      window.clearTimeout(fadeTimer);
+      window.clearTimeout(hideTimer);
+    };
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f7f7f5] text-black">
-      <motion.div
+      {showIntro && (
+        <div className={`intro-overlay ${fadeIntro ? "intro-overlay--hidden" : ""}`}>
+          <div className="intro-overlay__inner">
+            <div className="intro-brand">
+              <div className="intro-brand__headline">
+                <span className="intro-text intro-text--strikethrough">WHYSPACY</span>
+                <span className={`intro-text intro-text--typed ${fadeIntro ? "intro-text--typed-visible" : ""}`}>
+                  WAN FLO1D
+                </span>
+              </div>
+              <p className="intro-tagline">Art, code and motion in one premium world.</p>
+            </div>
+          </div>
+        </div>
+      )}
+      {!showIntro && (
+        <div className="site-content">
+          <motion.div
         style={{
           x: smoothX,
           y: smoothY,
@@ -775,7 +807,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <section className="relative z-10 px-6 py-32">
+      <section id="projects" className="relative z-10 px-6 py-32" ref={workSectionRef}>
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 flex items-center justify-between">
             <div>
@@ -844,14 +876,14 @@ export default function Home() {
                       {t.premiumProject}
                     </p>
 
-                    <h3
+                    {/* <h3
                       className="text-4xl font-black uppercase text-white max-w-[60%] break-words whitespace-normal"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
                       {works[current].title}
-                    </h3>
+                    </h3> */}
                   </div>
                 </div>
 
@@ -945,14 +977,14 @@ export default function Home() {
                       />
                     </a>
 
-                    <a
-                      href="https://t.me/wanflo1dceo"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full border border-black/10 bg-white/60 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white"
+                    <button
+                      type="button"
+                      onClick={nextSlide}
+                      className="rounded-full border border-black/10 bg-white/60 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white inline-flex items-center justify-center gap-2"
                     >
-                      {t.fullCase}
-                    </a>
+                      Next work
+                      <ChevronRight size={18} />
+                    </button>
                 </div>
               </div>
             </div>
@@ -1107,7 +1139,7 @@ export default function Home() {
                 </a>
 
                 <a
-                  href="https://t.me/wanflo1dceo"
+                  href="mailto:wanflo1d@gmail.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
@@ -1123,7 +1155,7 @@ export default function Home() {
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
-                      @wanflo1dceo
+                      wanflo1d@gmail.com
                     </h4>
                   </div>
 
@@ -1131,7 +1163,7 @@ export default function Home() {
                 </a>
 
                 <a
-                  href="https://t.me/wanflo1dceo"
+                  href="https://instagram.com/wanflo1d"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
@@ -1147,7 +1179,7 @@ export default function Home() {
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
-                      @wanflo1dceo
+                      @wanflo1d
                     </h4>
                   </div>
 
@@ -1552,6 +1584,8 @@ export default function Home() {
           </p>
         </div>
       </footer>
+        </div>
+      )}
     </div>
   );
 }
