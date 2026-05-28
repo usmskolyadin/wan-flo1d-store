@@ -535,8 +535,8 @@ export default function Home() {
   const [fadeIntro, setFadeIntro] = useState(false);
 
   useEffect(() => {
-    const fadeTimer = window.setTimeout(() => setFadeIntro(true), 2400);
-    const hideTimer = window.setTimeout(() => setShowIntro(false), 3200);
+    const fadeTimer = window.setTimeout(() => setFadeIntro(true), 3200);
+    const hideTimer = window.setTimeout(() => setShowIntro(false), 4200);
 
     return () => {
       window.clearTimeout(fadeTimer);
