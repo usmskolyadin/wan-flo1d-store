@@ -19,6 +19,8 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 import Lightbox from "./components/lightbox";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 
 type Language = "en" | "ru";
 
@@ -29,6 +31,7 @@ interface Work {
   price: string;
   hero: string;
   gallery: string[];
+  previewType: "desktop" | "mobile";
 }
 
 interface ServiceItem {
@@ -103,14 +106,14 @@ const works: Work[] = [
   {
     title: "ZAMDA",
     description:
-      "Advertising marketplace like Avito, Shpok",
+      "Advertising marketplace like Avito, Shpok with AI-powered recommendation systems, real-time chating and options for increasing conversion (mailings, referral program, verifications).",
     stack: [
       "Python",
       "Django REST Framework",
       "WebSockets",
       "Next.js",
     ],
-    price: "$2500+",
+    price: "$2000+",
     hero: "/works/zamda/1.png",
     gallery: [
       "/works/zamda/1.png",
@@ -120,11 +123,12 @@ const works: Work[] = [
       "/works/zamda/5.png",
       "/works/zamda/6.png",
     ],
+    previewType: "desktop",
   },
   {
     title: "SEAMUSIC",
     description:
-      "Premium music marketplace platform for producers & artists with licensing, AI systems and social mechanics.",
+      "Music ecosystem for artists, producers and squads with chating, analytics, music release systems and many custom features focused on music industry needs. A marketplace with a touch of social network, and vice versa :)",
     stack: [
       "Next.js",
       "TypeScript",
@@ -143,11 +147,12 @@ const works: Work[] = [
       "/works/seamusic/5.png",
       "/works/seamusic/6.png",
     ],
+    previewType: "desktop",
   },
   {
     title: "HAPPYFLOWDESIGN",
     description:
-      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+      "Modern landing page for HappyFlowDesign creative studio with smooth animations, strong visual identity and modern UX. Built-in calculator for calculating cost and administrative panel",
     stack: [
       "Next.js",
       "Node.js",
@@ -165,11 +170,12 @@ const works: Work[] = [
       "/works/happyflowdesign/5.jpg",
       "/works/happyflowdesign/6.jpg",
     ],
+    previewType: "desktop",
   },
   {
-    title: "карьерамолодых.рф",
+    title: "карьерамолодых",
     description:
-      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+      "Landing for government project aimed at helping young professionals build their careers. The platform provides resources, mentorship opportunities, and job listings to support career development and growth.",
     stack: [
       "Next.js",
       "Node.js",
@@ -177,17 +183,19 @@ const works: Work[] = [
       "AWS",
       "Stripe",
     ],
-    price: "$5,000+",
+    price: "Custom",
     hero: "/works/career/centr.jpg",
     gallery: [
+      "/works/career/centr.jpg",
       "/works/career/centr2.jpg",
       "/works/career/centr3.jpg",
     ],
+    previewType: "desktop",
   },
   {
     title: "dveri24",
     description:
-      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+      "Corporate website for Dveri24, a leading door manufacturing company. The site features a modern design, product catalog, and contact information to showcase their offerings and facilitate customer inquiries.",
     stack: [
       "Django",
     ],
@@ -198,15 +206,34 @@ const works: Work[] = [
       "/works/doors/dveri3.jpg",
       "/works/doors/dveri4.jpg",
     ],
+    previewType: "desktop",
+  },
+  {
+    title: "НЭТИЗЕН WRLD",
+    description:
+      "Quiz telegram mini application for the НЭТИЗЕН WRLD project. The quiz is designed to engage users and provide an interactive experience within the Telegram platform, featuring a variety of questions and a user-friendly interface.",
+    stack: [
+      "React.js", "Node.js", "MongoDB", "AWS", "FastAPI",
+    ],
+    price: "$200+",
+    hero: "/works/netizen/netizen (1).jpg",
+    gallery: [
+      "/works/netizen/netizen (2).jpg",
+      "/works/netizen/netizen (3).jpg",
+      "/works/netizen/netizen (4).jpg",
+      "/works/netizen/netizen (5).jpg",
+      "/works/netizen/netizen (6).jpg",
+    ],
+    previewType: "mobile",
   },
   {
     title: "ARTIZ",
     description:
-      "Modern ecosystem for artists including portfolios, music releases, analytics and monetization systems.",
+      "Auction platform for digital art. The platform allows artists to showcase and sell their digital artwork through an auction system, providing a space for art enthusiasts to discover and purchase unique pieces.",
     stack: [
       "Django",
     ],
-    price: "$500+",
+    price: "$250+",
     hero: "/works/artiz/artiz4.jpg",
     gallery: [
       "/works/artiz/artiz1.jpg",
@@ -214,6 +241,7 @@ const works: Work[] = [
       "/works/artiz/artiz3.jpg",
       "/works/artiz/artiz4.jpg",
     ],
+    previewType: "desktop",
   },
 ];
 
@@ -227,6 +255,7 @@ const companies: string[] = [
   "Elfardi",
   "Dveri-msk24",
   "SpacyCookingHere",
+  "НЭТИЗЕН WRLD",
 ];
 
 const translations: Record<Language, Translations> = {
@@ -236,8 +265,8 @@ const translations: Record<Language, Translations> = {
       "Creative developer, producer & designer crafting futuristic digital experiences.",
     heroDescription:
       "I build premium interfaces, music ecosystems and visual systems focused on aesthetics, emotion and performance.",
-    nav: ["Home", "Projects", "About", "Contact"],
-    about: "About",
+    nav: ["Home", "Projects", "Services", "Contact", "Reviews"],
+    about: "Reviews",
     projects: "Selected Works",
     portfolioLabel: "Portfolio",
     contact: "Available for collaborations",
@@ -329,7 +358,7 @@ const translations: Record<Language, Translations> = {
     feedbackTitleLine1: "PEOPLE",
     feedbackTitleLine2: "TALK.",
     feedbackDescription:
-      "Real feedback from artists, creators, clients and people who worked with me on different projects and systems.",
+      "Reviews from my clients. I still work with many of them. My goal is long-term cooperation. The authenticity of the reviews can be verified here. https://t.me/wanflo1dportfolio",
     positiveLabel: "Positive",
     neutralLabel: "Neutral",
     verifiedFeedback: "Verified Feedback",
@@ -342,8 +371,8 @@ const translations: Record<Language, Translations> = {
       "Fullstack-разработчик & AI-специалист с опытом более 5 лет",
     heroDescription:
       "Я создаю современные маркетплейсы, AI-сервисы и многие сложные платформы с акцентом на будущее. Выстраиваю архитектуру твоего цифрового присутствия с нуля, без шаблонов и конструкторов.",
-    nav: ["Главная", "Проекты", "Обо мне", "Контакты"],
-    about: "Обо Мне",
+    nav: ["Главная", "Проекты", "Услуги", "Контакты", "Отзывы"],
+    about: "Отзывы",
     projects: "Избранные Работы",
     portfolioLabel: "Портфолио",
     contact: "Открыт для коллабораций",
@@ -413,11 +442,11 @@ const translations: Record<Language, Translations> = {
     premiumLabel: "Премиум",
     orderService: "Заказать услугу",
     contactLabel: "Контакты",
-    contactTitleLine1: "ДАВАЙ ПОСТРОИМ",
+    contactTitleLine1: "ДАВАЙ СДЕЛАЕМ",
     contactTitleLine2: "ЧТО-ТО",
-    contactTitleLine3: "ДРУГОЕ.",
+    contactTitleLine3: "ЕЩЕ.",
     contactDescription:
-      "Если вам нужен премиум-сайт, маркетплейс, AI-система или кастомный цифровой продукт — свяжитесь со мной напрямую.",
+      "Если тебе нужен сайт, маркетплейс, AI-система или кастомный цифровой продукт — свяжись со мной напрямую.",
     telegramLabel: "Telegram",
     emailLabel: "Email",
     instagramLabel: "Instagram",
@@ -435,12 +464,12 @@ const translations: Record<Language, Translations> = {
     feedbackTitleLine1: "ЛЮДИ",
     feedbackTitleLine2: "ГОВОРЯТ.",
     feedbackDescription:
-      "Реальные отзывы от артистов, клиентов и людей, с которыми я работал над разными проектами и системами.",
+      "Отзывы от моих клиентов. Со многими я до сих пор работаю. Моя задача - это долгосрочное сотрудничество. Реальность отзывов можно проверить здесь - https://t.me/wanflo1dportfolio",
     positiveLabel: "Положительно",
     neutralLabel: "Нейтрально",
     verifiedFeedback: "Проверенный отзыв",
     footerBrand: "WAN FLO1D",
-    footerCopyright: "© 2026 — Сделано с точностью.",
+    footerCopyright: "© 2026 - Сделано с кайфом.",
   },
 };
 
@@ -453,10 +482,53 @@ export default function Home() {
   const workSectionRef = useRef<HTMLDivElement | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
   const [spin, setSpin] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const t = useMemo(() => translations[lang], [lang]);
   const services: ServiceItem[] = t.services.items;
-  const navTargetIds = ["hero", "projects", "services", "contact"] as const;
+  const navTargetIds = ["hero", "projects", "services", "contact", "reviews"] as const;
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+const menuRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  const handleClickOutside = (e: MouseEvent) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(e.target as Node)
+    ) {
+      setMenuOpen(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+  };
+}, []);
+
+const openMenu = () => {
+  if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  setMenuOpen(true);
+};
+
+const closeMenu = () => {
+  timeoutRef.current = setTimeout(() => {
+    setMenuOpen(false);
+  }, 350);
+};
+
+  const nav = [
+    { label: "Home", href: "#hero", number: "01" },
+    { label: "Projects", href: "#projects", number: "02" },
+    { label: "Services", href: "#services", number: "03" },
+    { label: "Contact", href: "#contact", number: "04" },
+    { label: "Reviews", href: "#reviews", number: "05" },
+  ];
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -505,10 +577,12 @@ export default function Home() {
 
   const nextSlide = () => {
     setCurrent((prev: number) => (prev + 1) % works.length);
+    setSelectedImage(0)
   };
 
   const prevSlide = () => {
     setCurrent((prev: number) => (prev - 1 + works.length) % works.length);
+    setSelectedImage(0)
   };
 
   const openLightbox = (index: number): void => {
@@ -543,6 +617,33 @@ export default function Home() {
       window.clearTimeout(hideTimer);
     };
   }, []);
+
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [typedText, setTypedText] = useState("");
+const aboutText = `Привет. Меня зовут Влад.
+Я занимаюсь разработкой веб-приложений.
+Создаю сложные SaaS-платформы и маркетплейсы.
+Работаю с Next.js, React, FastAPI и Python.
+Люблю делать красивые интерфейсы и продуманный UX.`;
+useEffect(() => {
+  if (!aboutOpen) {
+    setTypedText("");
+    return;
+  }
+
+  let index = 0;
+
+  const interval = setInterval(() => {
+    setTypedText(aboutText.slice(0, index));
+    index++;
+
+    if (index > aboutText.length) {
+      clearInterval(interval);
+    }
+  }, 35);
+
+  return () => clearInterval(interval);
+}, [aboutOpen]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f7f7f5] text-black">
@@ -588,24 +689,6 @@ export default function Home() {
           className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-black/10 bg-white/60 px-6 py-4 shadow-[0_8px_40px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
         >
           <div className="flex items-center gap-10">
-            {/* <h1
-              className="flex items-center gap-3 text-lg font-black uppercase tracking-[0.1em]"
-              style={{
-                fontFamily: "Benzin, sans-serif",
-              }}
-            >
-              <span className="hidden relative text-black/35 line-through decoration-2">
-                SPACY
-              </span>
-
-              <span className="text-black">
-                WAN FLO1D
-              </span>
-
-              <span className="text-black/35">
-                STORE
-              </span>
-            </h1> */}
               <Image 
                 src="/1f.png" 
                 alt="" 
@@ -654,9 +737,121 @@ export default function Home() {
               </button>
             </div>
 
-            <button className="rounded-full border border-black/10 bg-white/60 p-3 backdrop-blur-xl transition-all hover:scale-105">
-              <Globe size={18} />
-            </button>
+<div className="flex items-center gap-3">
+
+  {/* MOBILE MENU */}
+
+  <div
+    ref={menuRef}
+    className="relative md:hidden"
+  >
+    <button
+      onClick={() => setMenuOpen(!menuOpen)}
+      className="
+        flex
+        h-12
+        w-12
+        items-center
+        justify-center
+        rounded-full
+        border
+        border-black/10
+        bg-white/60
+        backdrop-blur-xl
+        transition-all
+        hover:scale-105
+      "
+    >
+      {menuOpen ? (
+        <X size={18} />
+      ) : (
+        <Menu size={18} />
+      )}
+    </button>
+
+    <AnimatePresence>
+      {menuOpen && (
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -10,
+            scale: 0.96,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+          }}
+          exit={{
+            opacity: 0,
+            y: -10,
+            scale: 0.96,
+          }}
+          transition={{
+            duration: 0.2,
+          }}
+          className="
+            absolute
+            right-0
+            top-16
+            z-50
+            w-[220px]
+            overflow-hidden
+            rounded-[28px]
+            border
+            border-black/10
+            bg-white/80
+            backdrop-blur-2xl
+            shadow-[0_20px_60px_rgba(0,0,0,0.12)]
+          "
+        >
+          <div className="p-2">
+            {nav.map((item, index) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="
+                  group
+                  flex
+                  items-center
+                  justify-between
+                  rounded-2xl
+                  px-4
+                  py-4
+                  transition-all
+                  hover:bg-black
+                  hover:text-white
+                "
+              >
+                <span
+                  className="font-semibold"
+                  style={{
+                    fontFamily:
+                      "Benzin, sans-serif",
+                  }}
+                >
+                  {item.label}
+                </span>
+
+                <span
+                  className="
+                    text-xs
+                    opacity-40
+                    transition-all
+                    group-hover:opacity-100
+                  "
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </a>
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+</div>
           </div>
         </motion.div>
       </header>
@@ -692,8 +887,7 @@ export default function Home() {
 
             <div className="flex flex-wrap gap-4">
               <a
-                href="https://t.me/wanflo1dceo"
-                target="_blank"
+                href="#projects"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 rounded-full bg-black px-7 py-4 text-sm font-medium text-white transition-all hover:scale-105"
               >
@@ -706,9 +900,7 @@ export default function Home() {
               </a>
 
               <a
-                href="https://t.me/wanflo1dceo"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#reviews"
                 className="rounded-full border border-black/10 bg-white/60 px-7 py-4 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white"
               >
                 {t.about}
@@ -718,19 +910,19 @@ export default function Home() {
               {[
                 {
                   icon: FaGithub,
-                  href: "https://t.me/wanflo1dceo",
+                  href: "https://github.com/usmskolyadin",
                 },
                 {
                   icon: FaTelegram,
                   href: "https://t.me/wanflo1dceo",
                 },
-                {
-                  icon: FaYoutube,
-                  href: "https://t.me/wanflo1dceo",
-                },
+                // {
+                //   icon: FaYoutube,
+                //   href: "https://t.me/wanflo1dceo",
+                // },
                 {
                   icon: FaInstagram,
-                  href: "https://t.me/wanflo1dceo",
+                  href: "https://instagram.com/wanflo1d",
                 },
               ].map((item, i) => {
                 const Icon = item.icon;
@@ -856,13 +1048,25 @@ export default function Home() {
                   onClick={() => openLightbox(selectedImage)}
                   className="group relative overflow-hidden rounded-[34px] cursor-zoom-in"
                 >
+                <div
+                  className={`mx-auto overflow-hidden rounded-[34px] ${
+                    works[current].previewType === "mobile"
+                      ? "w-[280px] lg:w-[340px]"
+                      : "w-full"
+                  }`}
+                >
                   <Image
                     src={works[current].gallery[selectedImage]}
                     alt={works[current].title}
                     width={1800}
                     height={1200}
-                    className="lg:h-[500px] h-[300px] w-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
+                    className={`w-full transition-all duration-700 group-hover:scale-[1.02] ${
+                      works[current].previewType === "mobile"
+                        ? "h-[560px] lg:h-[700px] object-cover"
+                        : "h-[200px] lg:h-[400px] object-cover"
+                    }`}
                   />
+                </div>
 
                   <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
@@ -887,7 +1091,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-5 grid lg:grid-cols-4 grid-cols-3 gap-4">
+                <div className={`mt-5 grid ${works[current].previewType === "mobile" ? "lg:grid-cols-5" : "lg:grid-cols-4"} ${works[current].previewType === "mobile" ? "grid-cols-4" : "grid-cols-3"} gap-4`}>
                   {works[current].gallery.map((img, index) => (
                     <button
                       key={index}
@@ -903,7 +1107,11 @@ export default function Home() {
                         alt=""
                         width={400}
                         height={300}
-                        className="lg:h-[110px] h-[50px] w-full object-cover transition-all duration-500 hover:scale-105"
+                        className={`w-full object-cover transition-all duration-500 hover:scale-105 ${
+                          works[current].previewType === "mobile"
+                            ? "h-[90px] lg:h-[140px]"
+                            : "h-[50px] lg:h-[110px]"
+                        }`}
                       />
                     </button>
                   ))}
@@ -917,7 +1125,7 @@ export default function Home() {
                   </div>
 
                   <h3
-                    className="lg:text-5xl text-4xl font-black uppercase leading-[1] break-words"
+                    className="lg:text-4xl text-4xl font-black uppercase leading-[1] break-words"
                     style={{
                       fontFamily: "Benzin, sans-serif",
                     }}
@@ -952,7 +1160,7 @@ export default function Home() {
                     </p>
 
                     <h4
-                      className="mt-3 lg:text-5xl text-4xl font-black"
+                      className="mt-3 lg:text-4xl text-4xl font-black"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
@@ -1085,7 +1293,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative mt-24 overflow-hidden rounded-[42px] border border-white/50 bg-black p-12 text-white shadow-[0_20px_100px_rgba(0,0,0,0.2)]"
+            className="relative mt-24 overflow-hidden rounded-[42px] border border-white/50 bg-black p-10 text-white shadow-[0_20px_100px_rgba(0,0,0,0.2)]"
           >
             <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
 
@@ -1126,42 +1334,17 @@ export default function Home() {
                     </p>
 
                     <h4
-                      className="mt-2 lg:text-2xl text-lg font-black uppercase"
+                      className="mt-2 lg:text-2xl text-md font-black uppercase"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
-                      @wanflo1dceo
+                      @wanflo1d
                     </h4>
                   </div>
 
                   <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                 </a>
-
-                <a
-                  href="mailto:wanflo1d@gmail.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
-                >
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.25em] opacity-50">
-                      {t.emailLabel}
-                    </p>
-
-                    <h4
-                      className="mt-2 lg:text-2xl text-lg font-black uppercase"
-                      style={{
-                        fontFamily: "Benzin, sans-serif",
-                      }}
-                    >
-                      wanflo1d@gmail.com
-                    </h4>
-                  </div>
-
-                  <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-                </a>
-
                 <a
                   href="https://instagram.com/wanflo1d"
                   target="_blank"
@@ -1174,7 +1357,7 @@ export default function Home() {
                     </p>
 
                     <h4
-                      className="mt-2 lg:text-2xl text-lg font-black uppercase"
+                      className="mt-2 lg:text-2xl text-md font-black uppercase"
                       style={{
                         fontFamily: "Benzin, sans-serif",
                       }}
@@ -1185,6 +1368,31 @@ export default function Home() {
 
                   <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                 </a>
+                <a
+                  href="mailto:wanflo1d@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between rounded-[28px] border border-white/10 bg-white/5 px-7 py-6 backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+                >
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.25em] opacity-50">
+                      {t.emailLabel}
+                    </p>
+
+                    <h4
+                      className="mt-2 lg:text-2xl text-xs font-black uppercase"
+                      style={{
+                        fontFamily: "Benzin, sans-serif",
+                      }}
+                    >
+                      wanflo1d@gmail.com
+                    </h4>
+                  </div>
+
+                  {/* <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /> */}
+                </a>
+
+
               </div>
             </div>
           </motion.div>
@@ -1440,7 +1648,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-<section className="relative z-10 px-6 py-32">
+<section id="reviews" className="relative z-10 px-6 py-32">
   <div className="mx-auto max-w-7xl">
     <div className="mb-20 max-w-3xl">
       <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
@@ -1527,7 +1735,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="group relative overflow-hidden rounded-[36px] border border-white/50 bg-white/50 p-8 shadow-[0_10px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_80px_rgba(0,0,0,0.12)]"
         >
-          <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-black/5 blur-3xl transition-all duration-700 group-hover:scale-150" />
+          <div  className="absolute right-0 top-0 h-40 w-40 rounded-full bg-black/5 blur-3xl transition-all duration-700 group-hover:scale-150" />
 
           <div className="relative z-10 mb-8 flex items-center justify-between">
             <div
