@@ -41,6 +41,7 @@ interface ServiceItem {
   tags: string[];
 }
 
+
 interface Translations {
   heroTitle: string;
   heroSubtitle: string;
@@ -92,6 +93,8 @@ interface Translations {
   verifiedFeedback: string;
   footerBrand: string;
   footerCopyright: string;
+  reviews: Review[];
+  works: Work[];
 }
 
 interface Review {
@@ -101,9 +104,189 @@ interface Review {
   positive: boolean;
 }
 
-const works: Work[] = [
+// const works: Work[] = [
 
-  {
+//   {
+//     title: "ZAMDA",
+//     description:
+//       "Advertising marketplace like Avito, Shpok with AI-powered recommendation systems, real-time chating and options for increasing conversion (mailings, referral program, verifications).",
+//     stack: [
+//       "Python",
+//       "Django REST Framework",
+//       "WebSockets",
+//       "Next.js",
+//     ],
+//     price: "$2000+",
+//     hero: "/works/zamda/1.png",
+//     gallery: [
+//       "/works/zamda/1.png",
+//       "/works/zamda/2.png",
+//       "/works/zamda/3.png",
+//       "/works/zamda/4.png",
+//       "/works/zamda/5.png",
+//       "/works/zamda/6.png",
+//     ],
+//     previewType: "desktop",
+//   },
+//   {
+//     title: "SEAMUSIC",
+//     description:
+//       "Music ecosystem for artists, producers and squads with chating, analytics, music release systems and many custom features focused on music industry needs. A marketplace with a touch of social network, and vice versa :)",
+//     stack: [
+//       "Next.js",
+//       "TypeScript",
+//       "FastAPI",
+//       "PostgreSQL",
+//       "Redis",
+//       "Tailwind",
+//     ],
+//     price: "Custom",
+//     hero: "/works/seamusic/1.png",
+//     gallery: [
+//       "/works/seamusic/1.png",
+//       "/works/seamusic/2.png",
+//       "/works/seamusic/3.png",
+//       "/works/seamusic/4.png",
+//       "/works/seamusic/5.png",
+//       "/works/seamusic/6.png",
+//     ],
+//     previewType: "desktop",
+//   },
+//   {
+//     title: "HAPPYFLOWDESIGN",
+//     description:
+//       "Modern landing page for HappyFlowDesign creative studio with smooth animations, strong visual identity and modern UX. Built-in calculator for calculating cost and administrative panel",
+//     stack: [
+//       "Next.js",
+//       "Node.js",
+//       "MongoDB",
+//       "AWS",
+//       "Stripe",
+//     ],
+//     price: "$1000+",
+//     hero: "/works/happyflowdesign/4.jpg",
+//     gallery: [
+//       "/works/happyflowdesign/1.jpg",
+//       "/works/happyflowdesign/2.jpg",
+//       "/works/happyflowdesign/3.jpg",
+//       "/works/happyflowdesign/4.jpg",
+//       "/works/happyflowdesign/5.jpg",
+//       "/works/happyflowdesign/6.jpg",
+//     ],
+//     previewType: "desktop",
+//   },
+//   {
+//     title: "карьерамолодых",
+//     description:
+//       "Landing for government project aimed at helping young professionals build their careers. The platform provides resources, mentorship opportunities, and job listings to support career development and growth.",
+//     stack: [
+//       "Next.js",
+//       "Node.js",
+//       "MongoDB",
+//       "AWS",
+//       "Stripe",
+//     ],
+//     price: "Custom",
+//     hero: "/works/career/centr.jpg",
+//     gallery: [
+//       "/works/career/centr.jpg",
+//       "/works/career/centr2.jpg",
+//       "/works/career/centr3.jpg",
+//     ],
+//     previewType: "desktop",
+//   },
+//   {
+//     title: "dveri24",
+//     description:
+//       "Corporate website for Dveri24, a leading door manufacturing company. The site features a modern design, product catalog, and contact information to showcase their offerings and facilitate customer inquiries.",
+//     stack: [
+//       "Django",
+//     ],
+//     price: "$500+",
+//     hero: "/works/doors/dveri1.jpg",
+//     gallery: [
+//       "/works/doors/dveri2.jpg",
+//       "/works/doors/dveri3.jpg",
+//       "/works/doors/dveri4.jpg",
+//     ],
+//     previewType: "desktop",
+//   },
+//   {
+//     title: "НЭТИЗЕН WRLD",
+//     description:
+//       "Quiz telegram mini application for the НЭТИЗЕН WRLD project. The quiz is designed to engage users and provide an interactive experience within the Telegram platform, featuring a variety of questions and a user-friendly interface.",
+//     stack: [
+//       "React.js", "Node.js", "MongoDB", "AWS", "FastAPI",
+//     ],
+//     price: "$200+",
+//     hero: "/works/netizen/netizen (1).jpg",
+//     gallery: [
+//       "/works/netizen/netizen (2).jpg",
+//       "/works/netizen/netizen (3).jpg",
+//       "/works/netizen/netizen (4).jpg",
+//       "/works/netizen/netizen (5).jpg",
+//       "/works/netizen/netizen (6).jpg",
+//     ],
+//     previewType: "mobile",
+//   },
+//   {
+//     title: "ARTIZ",
+//     description:
+//       "Auction platform for digital art. The platform allows artists to showcase and sell their digital artwork through an auction system, providing a space for art enthusiasts to discover and purchase unique pieces.",
+//     stack: [
+//       "Django",
+//     ],
+//     price: "$250+",
+//     hero: "/works/artiz/artiz4.jpg",
+//     gallery: [
+//       "/works/artiz/artiz1.jpg",
+//       "/works/artiz/artiz2.jpg",
+//       "/works/artiz/artiz3.jpg",
+//       "/works/artiz/artiz4.jpg",
+//     ],
+//     previewType: "desktop",
+//   },
+// ];
+
+const companies: string[] = [
+  "SeaMusic",
+  "БАРС",
+  "ЦСМС",
+  "ZAMDA",
+  "STUDIAU7",
+  "HappyFlowDesign",
+  "Elfardi",
+  "Dveri-msk24",
+  "SpacyCookingHere",
+  "НЭТИЗЕН WRLD",
+];
+
+const translations: Record<Language, Translations> = {
+  en: {
+    heroTitle: "wan flo1d's store",
+    heroSubtitle:
+      "Creative developer, producer & designer crafting futuristic digital experiences.",
+    heroDescription:
+      "I build premium interfaces, music ecosystems and visual systems focused on aesthetics, emotion and performance.",
+    nav: ["Home", "Projects", "Services", "Contact", "Reviews"],
+    about: "Reviews",
+    projects: "Selected Works",
+    portfolioLabel: "Portfolio",
+    contact: "Available for collaborations",
+    button: "Explore Projects",
+    premiumProject: "Premium Project",
+    customDevelopment: "Custom Development",
+    stack: "Stack",
+    startingPrice: "Starting Price",
+    orderSimilar: "Order Similar Project",
+    fullCase: "Full Case Study",
+    servicesLabel: "Services",
+    servicesTitleLine1: "DIGITAL PRODUCTS",
+    servicesTitleLine2: "& CREATIVE SYSTEMS",
+    servicesDescription:
+      "Premium custom development focused on aesthetics, performance and originality. Every project is built from scratch without templates or builders.",
+    works:  [
+      {
     title: "ZAMDA",
     description:
       "Advertising marketplace like Avito, Shpok with AI-powered recommendation systems, real-time chating and options for increasing conversion (mailings, referral program, verifications).",
@@ -243,45 +426,7 @@ const works: Work[] = [
     ],
     previewType: "desktop",
   },
-];
-
-const companies: string[] = [
-  "SeaMusic",
-  "БАРС",
-  "ЦСМС",
-  "ZAMDA",
-  "STUDIAU7",
-  "HappyFlowDesign",
-  "Elfardi",
-  "Dveri-msk24",
-  "SpacyCookingHere",
-  "НЭТИЗЕН WRLD",
-];
-
-const translations: Record<Language, Translations> = {
-  en: {
-    heroTitle: "wan flo1d's store",
-    heroSubtitle:
-      "Creative developer, producer & designer crafting futuristic digital experiences.",
-    heroDescription:
-      "I build premium interfaces, music ecosystems and visual systems focused on aesthetics, emotion and performance.",
-    nav: ["Home", "Projects", "Services", "Contact", "Reviews"],
-    about: "Reviews",
-    projects: "Selected Works",
-    portfolioLabel: "Portfolio",
-    contact: "Available for collaborations",
-    button: "Explore Projects",
-    premiumProject: "Premium Project",
-    customDevelopment: "Custom Development",
-    stack: "Stack",
-    startingPrice: "Starting Price",
-    orderSimilar: "Order Similar Project",
-    fullCase: "Full Case Study",
-    servicesLabel: "Services",
-    servicesTitleLine1: "DIGITAL PRODUCTS",
-    servicesTitleLine2: "& CREATIVE SYSTEMS",
-    servicesDescription:
-      "Premium custom development focused on aesthetics, performance and originality. Every project is built from scratch without templates or builders.",
+  ],  
     services: {
       items: [
         {
@@ -325,14 +470,71 @@ const translations: Record<Language, Translations> = {
         },
 
         {
-          title: "UI / BRAND DESIGN",
+          title: "TELEGRAM MINI APP",
           description:
-            "Premium visual identity, futuristic interfaces and creative direction for digital brands.",
+            "Telegram mini app for your business. Quizzes / Stores / Games and more.",
           price: "from $300",
-          tags: ["Figma", "Branding", "Creative"],
+          tags: ["Telegram API", "Fullstack"],
         },
       ],
     },
+reviews: [
+  {
+    text: "Huge thanks to Maxim for delivering a high-quality project within a very tight deadline 🔥 He constantly suggested valuable ideas that improved both the relevance and functionality of the project. Any issues that appeared during development were resolved as quickly as possible 🤝🏼 He also left comments throughout the codebase, making it much easier to navigate and understand. The folders and code were well-structured and organized. He was available both day and night 😇 Before the final delivery, we thoroughly checked all functionality and potential issues.",
+    author: "Fila St",
+    source: "Telegram",
+    positive: true,
+  },
+
+  {
+    text: "Fortunately, Maxim is truly a responsible and reliable person you can trust. He always clarifies details and asks the right questions. The code is clean and understandable. Whenever the client faces issues, he is very responsive and helpful. He clearly understands his main objective and works diligently according to the technical requirements and provided data. I definitely recommend Maxim. I'm sure he can help with projects of any complexity!",
+    author: "Анюта",
+    source: "Telegram",
+    positive: true,
+  },
+
+  {
+    text: "Many thanks to Maxim. The work was completed perfectly, he was always available, explained every detail afterward, and everything turned out amazing. The code wasn't bloated, all requested revisions were implemented, and we finished on time. Thank you so much again 🫶🏼",
+    author: "amaliya",
+    source: "Telegram",
+    positive: true,
+  },
+
+  {
+    text: "I asked him for help with a university project and the deadline was extremely close. He helped me complete everything within a day, stayed in touch the entire time, and I received the highest grade. Much appreciated 🤝✅",
+    author: "alex.mp3",
+    source: "Telegram",
+    positive: false,
+  },
+
+  {
+    text: "Maxim is very responsible and attentive. Everything was completed on time. I'm very grateful.",
+    author: "Мирра",
+    source: "Avito",
+    positive: true,
+  },
+
+  {
+    text: "Maxim really helped me out. He responded quickly and completed the task for a very reasonable price. Highly recommended — I'll definitely work with him again.",
+    author: "Транспорт48",
+    source: "Instagram",
+    positive: true,
+  },
+
+  {
+    text: "Maxim is an excellent developer and a highly responsible professional. The code was written cleanly and correctly, and the project structure was thoughtfully organized. He completes every task exactly according to the technical specification without unnecessary delays. The project runs smoothly and reliably. It's clear that he has strong Full-Stack development expertise and approaches his work with deep understanding. I highly recommend Maxim to anyone looking for an experienced developer with strong technical skills. Looking forward to working together again!",
+    author: "ZAMDA",
+    source: "Kwork",
+    positive: true,
+  },
+
+  {
+    text: "Maxim quickly understood my requirements and completed everything exactly as requested. Highly recommended!",
+    author: "карьерамолодых.рф",
+    source: "Kwork",
+    positive: true,
+  },
+],
     premiumLabel: "Premium",
     orderService: "Order Service",
     contactLabel: "Contact",
@@ -370,10 +572,10 @@ const translations: Record<Language, Translations> = {
     heroSubtitle:
       "Fullstack-разработчик & AI-специалист с опытом более 5 лет",
     heroDescription:
-      "Я создаю современные маркетплейсы, AI-сервисы и многие сложные платформы с акцентом на будущее. Выстраиваю архитектуру твоего цифрового присутствия с нуля, без шаблонов и конструкторов.",
+      "Создаю современные сайты, маркетплейсы и AI-сервисы для вашего бизнеса. Моя задача - долгосрочное сотрудничество и творческий подход к каждому проекту. ",
     nav: ["Главная", "Проекты", "Услуги", "Контакты", "Отзывы"],
     about: "Отзывы",
-    projects: "Избранные Работы",
+    projects: "Последние работы",
     portfolioLabel: "Портфолио",
     contact: "Открыт для коллабораций",
     button: "Смотреть Проекты",
@@ -384,42 +586,194 @@ const translations: Record<Language, Translations> = {
     orderSimilar: "Заказать похожий проект",
     fullCase: "Полный кейс",
     servicesLabel: "Услуги",
-    servicesTitleLine1: "DIGITAL-ПРОДУКТЫ",
-    servicesTitleLine2: "& КРЕАТИВНЫЕ СИСТЕМЫ",
+    servicesTitleLine1: "МОИ УСЛУГИ ДЛЯ",
+    servicesTitleLine2: "ВАШЕГО БИЗНЕСА ПОД КЛЮЧ",
     servicesDescription:
       "Премиум кастомная разработка с фокусом на эстетику, производительность и оригинальность. Каждый проект делается с нуля без шаблонов.",
+works: [
+  {
+    title: "ZAMDA",
+    description:
+      "Маркетплейс объявлений наподобие Avito и Shpok с AI-рекомендациями, системой чатов в реальном времени и инструментами повышения конверсии: рассылками, реферальной программой, верификациями и другими механиками роста.",
+    stack: [
+      "Python",
+      "Django REST Framework",
+      "WebSockets",
+      "Next.js",
+    ],
+    price: "145000₽+",
+    hero: "/works/zamda/1.png",
+    gallery: [
+      "/works/zamda/1.png",
+      "/works/zamda/2.png",
+      "/works/zamda/3.png",
+      "/works/zamda/4.png",
+      "/works/zamda/5.png",
+      "/works/zamda/6.png",
+    ],
+    previewType: "desktop",
+  },
+
+  {
+    title: "SEAMUSIC",
+    description:
+      "Музыкальная экосистема для артистов, битмейкеров и творческих объединений с чатами, аналитикой, системой релизов и множеством кастомных инструментов, созданных специально под музыкальную индустрию. Маркетплейс с элементами социальной сети и наоборот :)",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Tailwind",
+    ],
+    price: "Договорная",
+    hero: "/works/seamusic/1.png",
+    gallery: [
+      "/works/seamusic/1.png",
+      "/works/seamusic/2.png",
+      "/works/seamusic/3.png",
+      "/works/seamusic/4.png",
+      "/works/seamusic/5.png",
+      "/works/seamusic/6.png",
+    ],
+    previewType: "desktop",
+  },
+
+  {
+    title: "HAPPYFLOWDESIGN",
+    description:
+      "Современный лендинг для креативной студии HappyFlowDesign с плавными анимациями, сильной визуальной идентичностью и современным UX. Включает встроенный калькулятор расчета стоимости услуг и административную панель управления.",
+    stack: [
+      "Next.js",
+      "Node.js",
+      "MongoDB",
+      "AWS",
+      "Stripe",
+    ],
+    price: "45000₽+",
+    hero: "/works/happyflowdesign/4.jpg",
+    gallery: [
+      "/works/happyflowdesign/1.jpg",
+      "/works/happyflowdesign/2.jpg",
+      "/works/happyflowdesign/3.jpg",
+      "/works/happyflowdesign/4.jpg",
+      "/works/happyflowdesign/5.jpg",
+      "/works/happyflowdesign/6.jpg",
+    ],
+    previewType: "desktop",
+  },
+
+  {
+    title: "карьерамолодых.рф",
+    description:
+      "Лендинг для государственного проекта, направленного на помощь молодым специалистам в построении карьеры. Платформа предоставляет образовательные материалы, возможности наставничества и инструменты для профессионального развития.",
+    stack: [
+      "Next.js",
+      "Node.js",
+      "MongoDB",
+      "AWS",
+      "Stripe",
+    ],
+    price: "Договорная",
+    hero: "/works/career/centr.jpg",
+    gallery: [
+      "/works/career/centr.jpg",
+      "/works/career/centr2.jpg",
+      "/works/career/centr3.jpg",
+    ],
+    previewType: "desktop",
+  },
+
+  {
+    title: "DVERI24",
+    description:
+      "Корпоративный сайт для компании Dveri24 — производителя дверей. Содержит каталог продукции, информацию о компании и контактные данные для взаимодействия с клиентами.",
+    stack: [
+      "Django",
+    ],
+    price: "30000₽+",
+    hero: "/works/doors/dveri1.jpg",
+    gallery: [
+      "/works/doors/dveri2.jpg",
+      "/works/doors/dveri3.jpg",
+      "/works/doors/dveri4.jpg",
+    ],
+    previewType: "desktop",
+  },
+
+  {
+    title: "НЭТИЗЕН WRLD",
+    description:
+      "Telegram Mini App в формате викторины для проекта НЭТИЗЕН WRLD. Разработано для вовлечения аудитории через интерактивный формат внутри Telegram с удобным интерфейсом и кастомной игровой механикой.",
+    stack: [
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "AWS",
+      "FastAPI",
+    ],
+    price: "40000₽",
+    hero: "/works/netizen/netizen (1).jpg",
+    gallery: [
+      "/works/netizen/netizen (2).jpg",
+      "/works/netizen/netizen (3).jpg",
+      "/works/netizen/netizen (4).jpg",
+      "/works/netizen/netizen (5).jpg",
+      "/works/netizen/netizen (6).jpg",
+    ],
+    previewType: "mobile",
+  },
+
+  {
+    title: "ARTIZ",
+    description:
+      "Платформа цифровых аукционов для художников и коллекционеров. Позволяет публиковать, демонстрировать и продавать цифровые произведения искусства через аукционную систему.",
+    stack: [
+      "Django",
+    ],
+    price: "25000₽",
+    hero: "/works/artiz/artiz4.jpg",
+    gallery: [
+      "/works/artiz/artiz1.jpg",
+      "/works/artiz/artiz2.jpg",
+      "/works/artiz/artiz3.jpg",
+      "/works/artiz/artiz4.jpg",
+    ],
+    previewType: "desktop",
+  },
+],
     services: {
       items: [
         {
           title: "LANDING PAGE",
           description:
             "Высоко-конверсионные премиум лендинги с плавной анимацией, сильной визуальной идентичностью и современным UX.",
-          price: "от $400",
-          tags: ["Next.js", "Framer Motion", "Tailwind"],
+          price: "от $300",
+          tags: ["Next.js", "Framer Motion", "Lenis"],
         },
 
         {
           title: "BUSINESS WEBSITE",
           description:
             "Минималистичные и стильные сайты для брендов, артистов, стартапов и креативных студий.",
-          price: "от $700",
-          tags: ["Адаптивность", "SEO", "CMS"],
+          price: "от $500",
+          tags: ["Масштабируемо", "SEO", "Админка"],
         },
 
         {
           title: "AI SCRIPT / ML",
           description:
             "Кастомные AI-системы, скрипты автоматизации, компьютерное зрение, чатботы и ML-инструменты.",
-          price: "от $1200",
-          tags: ["Python", "OpenCV", "FastAPI"],
+          price: "от $500",
+          tags: ["Python", "OpenCV", "Scikit-learn", "FastAPI"],
         },
 
         {
           title: "MARKETPLACE",
           description:
             "Сложные платформы с оплатами, подписками, дашбордами, аналитикой и социальными системами.",
-          price: "от $3500",
-          tags: ["Fullstack", "PostgreSQL", "Redis"],
+          price: "от $1000",
+          tags: ["Fullstack", "PostgreSQL", "Redis", "WebSockets"],
         },
 
         {
@@ -429,16 +783,74 @@ const translations: Record<Language, Translations> = {
           price: "custom",
           tags: ["Архитектура", "Масштабируемо", "Безопасно"],
         },
-
         {
-          title: "UI / BRAND DESIGN",
+          title: "TELEGRAM MINI APP",
           description:
-            "Премиум визуальная идентичность, футуристичные интерфейсы и креативное направление для цифровых брендов.",
-          price: "от $300",
-          tags: ["Figma", "Branding", "Creative"],
+            "Телеграм мини аппка под ваш бизнес. Квизы / Магазины / Игры и многое другое",
+          price: "custom",
+          tags: ["Telegram API", "Fullstack"],
         },
+
+
       ],
     },
+reviews: [
+  {
+    text: "благодарю Максима за качественный проект, сделанный в сжатые сроки🔥 накидывал свои идеи, которые были к месту, подняли актуальность и функционал проекта возникавшие ошибки в ходе проекта решал по возможности незамедлительно🤝🏼 писал комментарии, чтобы было легче ориентироваться и понимать, что-за часть кода все папки и код также были структурированы был на связи и днем, и ночью😇 перед защитой проверили весь функционал, есть ли ошибки",
+    author: "Fila St",
+    source: "Telegram",
+    positive: true,
+  },
+
+  {
+    text: "Благо действительно понимающий и ответственный человек, которому можно доверять. Отмечу: Максим все уточняет, задает грамотные вопросы. Код понятный. При возникновении проблем у заказчика очень отзывчив. Понимает свою главную задачу и усердно работает по техническому заданию - предоставленным данным для разработки. Однозначно рекомендую Максима) Уверена, он точно поможет с работой любой сложности!",
+    author: "Анюта",
+    source: "Telegram",
+    positive: true,
+  },
+
+  {
+    text: "Спасибо большое Максиму, работа сделана хорошо, всегда был на связи, все моменты потом объяснил, прям супер супер, коды не километровые, все правки выполнял, в срок успели) еще раз спасибо большое 🫶🏼",
+    author: "amaliya",
+    source: "Telegram",
+    positive: true,
+  },
+
+  {
+    text: "попросил помочь с курсовой сроки горели помог все быстро и четко сделать за сутки все время был на связи за курсовую получил 5 от души если что буду еще обращаться🤝✅",
+    author: "alex.mp3",
+    source: "Telegram",
+    positive: false,
+  },
+
+  {
+    text: "Максим очень ответственный и внимательный, все сделал в срок. Очень благодарна.",
+    author: "Мирра",
+    source: "Avito",
+    positive: true,
+  },
+
+  {
+    text: "Максим, очень выручил с задачей быстро отреагировал и за вполне адекватная цена!!! Всем советую, обязательно обращаюсь еще",
+    author: "Транспорт48",
+    source: "Instagram",
+    positive: true,
+  },
+
+  {
+    text: "Максим отличный разработчик и очень ответственный исполнитель. Код написал чисто и грамотно, вся структура проекта продумана логично и удобно. Все задачи выполняет точно по техническому заданию, без лишних вопросов и задержек. Проект работает стабильно, без ошибок. Видно, что человек действительно разбирается в Full-Stack разработке и подходит к делу с пониманием. Рекомендую Максима всем, кто ищет профессионала с опытом и техническим мышлением. Буду рад продолжить сотрудничество!",
+    author: "ZAMDA",
+    source: "Kwork",
+    positive: true,
+  },
+
+  {
+    text: "Максим быстро понял и выполнил всё по моему ТЗ, рекомендую!",
+    author: "карьерамолодых.рф",
+    source: "Kwork",
+    positive: true,
+  },
+],
     premiumLabel: "Премиум",
     orderService: "Заказать услугу",
     contactLabel: "Контакты",
@@ -576,12 +988,12 @@ const closeMenu = () => {
   }, [mouseX, mouseY]);
 
   const nextSlide = () => {
-    setCurrent((prev: number) => (prev + 1) % works.length);
+    setCurrent((prev: number) => (prev + 1) % t.works.length);
     setSelectedImage(0)
   };
 
   const prevSlide = () => {
-    setCurrent((prev: number) => (prev - 1 + works.length) % works.length);
+    setCurrent((prev: number) => (prev - 1 + t.works.length) % t.works.length);
     setSelectedImage(0)
   };
 
@@ -657,7 +1069,7 @@ useEffect(() => {
                   WAN FLO1D
                 </span>
               </div>
-              <p className="intro-tagline">Art, code and motion in one premium world.</p>
+              <p className="intro-tagline">New era of digital experiences</p>
             </div>
           </div>
         </div>
@@ -1050,18 +1462,18 @@ useEffect(() => {
                 >
                 <div
                   className={`mx-auto overflow-hidden rounded-[34px] ${
-                    works[current].previewType === "mobile"
+                    t.works[current].previewType === "mobile"
                       ? "w-[280px] lg:w-[340px]"
                       : "w-full"
                   }`}
                 >
                   <Image
-                    src={works[current].gallery[selectedImage]}
-                    alt={works[current].title}
+                    src={t.works[current].gallery[selectedImage]}
+                    alt={t.works[current].title}
                     width={1800}
                     height={1200}
                     className={`w-full transition-all duration-700 group-hover:scale-[1.02] ${
-                      works[current].previewType === "mobile"
+                      t.works[current].previewType === "mobile"
                         ? "h-[560px] lg:h-[700px] object-cover"
                         : "h-[200px] lg:h-[400px] object-cover"
                     }`}
@@ -1091,8 +1503,8 @@ useEffect(() => {
                   </div>
                 </div>
 
-                <div className={`mt-5 grid ${works[current].previewType === "mobile" ? "lg:grid-cols-5" : "lg:grid-cols-4"} ${works[current].previewType === "mobile" ? "grid-cols-4" : "grid-cols-3"} gap-4`}>
-                  {works[current].gallery.map((img, index) => (
+                <div className={`mt-5 grid ${t.works[current].previewType === "mobile" ? "lg:grid-cols-5" : "lg:grid-cols-4"} ${t.works[current].previewType === "mobile" ? "grid-cols-4" : "grid-cols-3"} gap-4`}>
+                  {t.works[current].gallery.map((img, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
@@ -1108,7 +1520,7 @@ useEffect(() => {
                         width={400}
                         height={300}
                         className={`w-full object-cover transition-all duration-500 hover:scale-105 ${
-                          works[current].previewType === "mobile"
+                          t.works[current].previewType === "mobile"
                             ? "h-[90px] lg:h-[140px]"
                             : "h-[50px] lg:h-[110px]"
                         }`}
@@ -1130,11 +1542,11 @@ useEffect(() => {
                       fontFamily: "Benzin, sans-serif",
                     }}
                   >
-                    {works[current].title}
+                    {t.works[current].title}
                   </h3>
 
                   <p className="mt-8 text-base leading-8 text-black/60">
-                    {works[current].description}
+                    {t.works[current].description}
                   </p>
 
                   <div className="mt-10">
@@ -1143,7 +1555,7 @@ useEffect(() => {
                     </p>
 
                     <div className="flex flex-wrap gap-3">
-                      {works[current].stack.map((tech) => (
+                      {t.works[current].stack.map((tech) => (
                         <div
                           key={tech}
                           className="rounded-full border border-black/10 bg-white/60 px-5 py-3 text-sm font-medium backdrop-blur-xl"
@@ -1165,7 +1577,7 @@ useEffect(() => {
                         fontFamily: "Benzin, sans-serif",
                       }}
                     >
-                      {works[current].price}
+                      {t.works[current].price}
                     </h4>
                   </div>
                 </div>
@@ -1398,7 +1810,7 @@ useEffect(() => {
           </motion.div>
         </div>
       </section>
-      <section className="relative z-10 px-6 py-32">
+      {/* <section className="relative z-10 px-6 py-32">
         <div className="mx-auto max-w-7xl">
           <div className="mb-20 max-w-4xl">
             <p className="mb-4 text-sm uppercase tracking-[0.35em] text-black/40">
@@ -1647,7 +2059,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 <section id="reviews" className="relative z-10 px-6 py-32">
   <div className="mx-auto max-w-7xl">
     <div className="mb-20 max-w-3xl">
@@ -1671,109 +2083,55 @@ useEffect(() => {
       </p>
     </div>
 
-    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-      {[
-        {
-          text: "благодарю Максима за качественный проект, сделанный в сжатые сроки🔥 накидывал свои идеи, которые были к месту, подняли актуальность и функционал проекта возникавшие ошибки в ходе проекта решал по возможности незамедлительно🤝🏼 писал комментарии, чтобы было легче ориентироваться и понимать, что-за часть кода все папки и код также были структурированы был на связи и днем, и ночью😇 перед защитой проверили весь функционал, есть ли ошибки",
-          author: "Fila St",
-          source: "Telegram",
-          positive: true,
-        },
+<div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+  {t.reviews.map((review, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 70 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.08 }}
+      viewport={{ once: true }}
+      className="group relative overflow-hidden rounded-[36px] border border-white/50 bg-white/50 p-8 shadow-[0_10px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_80px_rgba(0,0,0,0.12)]"
+    >
+      <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-black/5 blur-3xl transition-all duration-700 group-hover:scale-150" />
 
-        {
-          text: "...Благо действительно понимающий и ответственный человек, которому можно доверять. Отмечу: Максим все уточняет, задает грамотные вопросы. Код понятный. При возникновении проблем у заказчика очень отзывчив. Понимает свою главную задачу и усердно работает по техническому заданию - предоставленным данным для разработки. Однозначно рекомендую Максима) Уверена, он точно поможет с работой любой сложности!",
-          author: "Анюта",
-          source: "Telegram",
-          positive: true,
-        },
-
-        {
-          text: "Спасибо большое Максиму, работа сделана хорошо, всегда был на связи, все моменты потом объяснил, прям супер супер, коды не километровые, все правки выполнял, в срок успели) еще раз спасибо большое 🫶🏼",
-          author: "amaliya",
-          source: "Telegram",
-          positive: true,
-        },
-
-        {
-          text: "попросил помочь с курсовой сроки горели помог все быстро и четко сделать за сутки все время был на связи за курсовую получил 5 от души если что буду еще обращаться🤝✅",
-          author: "alex.mp3",
-          source: "Telegram",
-          positive: false,
-        },
-
-        {
-          text: "Максим очень ответственный и внимательный, все сделал в срок. Очень благодарна.",
-          author: "Мирра",
-          source: "Avito",
-          positive: true,
-        },
-
-        {
-          text: "Максим, очень выручил с задачей быстро отреагировал и за вполне адекватная цена!!! Всем советую, обязательно обращаюсь еще",
-          author: "Транспорт48",
-          source: "Instagram",
-          positive: true,
-        },
-        {
-          text: "Максим отличный разработчик и очень ответственный исполнитель. Код написал чисто и грамотно, вся структура проекта продумана логично и удобно. Все задачи выполняет точно по техническому заданию, без лишних вопросов и задержек. Проект работает стабильно, без ошибок. Видно, что человек действительно разбирается в Full-Stack разработке и подходит к делу с пониманием. Рекомендую Максима всем, кто ищет профессионала с опытом и техническим мышлением. Буду рад продолжить сотрудничество!",
-          author: "ZAMDA",
-          source: "kwork",
-          positive: true,
-        },
-        {
-          text: "Максим быстро понял и выполнил всё по моему тз, рекомендую!",
-          author: "карьерамолодых.рф",
-          source: "kwork",
-          positive: true,
-        },
-      ].map((review, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 70 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.08 }}
-          viewport={{ once: true }}
-          className="group relative overflow-hidden rounded-[36px] border border-white/50 bg-white/50 p-8 shadow-[0_10px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_80px_rgba(0,0,0,0.12)]"
+      <div className="relative z-10 mb-8 flex items-center justify-between">
+        <div
+          className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.2em] ${
+            review.positive
+              ? "border border-black/10 bg-black text-white"
+              : "border border-black/10 bg-white text-black"
+          }`}
         >
-          <div  className="absolute right-0 top-0 h-40 w-40 rounded-full bg-black/5 blur-3xl transition-all duration-700 group-hover:scale-150" />
+          {review.positive ? t.positiveLabel : t.neutralLabel}
+        </div>
 
-          <div className="relative z-10 mb-8 flex items-center justify-between">
-            <div
-              className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.2em] ${
-                review.positive
-                  ? "border border-black/10 bg-black text-white"
-                  : "border border-black/10 bg-white text-black"
-              }`}
-            >
-              {review.positive ? t.positiveLabel : t.neutralLabel}
-            </div>
+        <p className="text-xs uppercase tracking-[0.2em] text-black/40">
+          {review.source}
+        </p>
+      </div>
 
-            <p className="text-xs uppercase tracking-[0.2em] text-black/40">
-              {review.source}
-            </p>
-          </div>
+      <p className="relative z-10 text-lg leading-8 text-black/75">
+        “{review.text}”
+      </p>
 
-          <p className="relative z-10 text-lg leading-8 text-black/75">
-            “{review.text}”
-          </p>
+      <div className="relative z-10 mt-10 border-t border-black/10 pt-6">
+        <h4
+          className="text-lg font-black uppercase"
+          style={{
+            fontFamily: "Benzin, sans-serif",
+          }}
+        >
+          {review.author}
+        </h4>
 
-          <div className="relative z-10 mt-10 border-t border-black/10 pt-6">
-            <h4
-              className="text-lg font-black uppercase"
-              style={{
-                fontFamily: "Benzin, sans-serif",
-              }}
-            >
-              {review.author}
-            </h4>
-
-            <p className="mt-2 text-sm uppercase tracking-[0.18em] text-black/40">
-              {t.verifiedFeedback}
-            </p>
-          </div>
-        </motion.div>
-      ))}
-    </div>
+        <p className="mt-2 text-sm uppercase tracking-[0.18em] text-black/40">
+          {t.verifiedFeedback}
+        </p>
+      </div>
+    </motion.div>
+  ))}
+</div>
   </div>
 </section>
       <footer className="relative z-10 border-t border-black/10 px-6 py-10">
