@@ -1010,11 +1010,11 @@ const closeMenu = () => {
   };
 
   const lbPrev = () => {
-    setLightboxIndex((i) => (i - 1 + works[current].gallery.length) % works[current].gallery.length);
+    setLightboxIndex((i) => (i - 1 + t.works[current].gallery.length) % t.works[current].gallery.length);
   };
 
   const lbNext = () => {
-    setLightboxIndex((i) => (i + 1) % works[current].gallery.length);
+    setLightboxIndex((i) => (i + 1) % t.works[current].gallery.length);
   };
 
   const [showIntro, setShowIntro] = useState(true);
