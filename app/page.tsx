@@ -1376,14 +1376,14 @@ useEffect(() => {
       </section>
       {lightboxOpen && (
         <Lightbox
-          images={works[current].gallery}
+          images={t.works[current].gallery}
           currentIndex={lightboxIndex}
           onClose={closeLightbox}
           onPrev={() => {
-            setLightboxIndex((i) => (i - 1 + works[current].gallery.length) % works[current].gallery.length);
+            setLightboxIndex((i) => (i - 1 + t.works[current].gallery.length) % t.works[current].gallery.length);
           }}
           onNext={() => {
-            setLightboxIndex((i) => (i + 1) % works[current].gallery.length);
+            setLightboxIndex((i) => (i + 1) % t.works[current].gallery.length);
           }}
         />
       )}
