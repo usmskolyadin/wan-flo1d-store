@@ -1413,16 +1413,16 @@ useEffect(() => {
         </motion.div>
       </section>
 
-      <section id="projects" className="relative z-10 px-6 py-32" ref={workSectionRef}>
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-16 flex items-center justify-between">
+      <section id="projects" className="relative z-10 py-32" ref={workSectionRef}>
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="mb-3 text-sm uppercase tracking-[0.35em] text-black/40">
                 {t.portfolioLabel}
               </p>
 
               <h2
-                className="lg:text-5xl text-2xl pr-2 font-black uppercase"
+                className="lg:text-6xl text-3xl pr-2 font-black uppercase"
                 style={{
                   fontFamily: "Benzin, sans-serif",
                 }}
@@ -1431,187 +1431,187 @@ useEffect(() => {
               </h2>
             </div>
 
-            <div className="flex gap-3">
-              <button
-                onClick={prevSlide}
-                className="rounded-full border border-black/10 bg-white/60 p-4 backdrop-blur-xl transition-all hover:scale-105 hover:bg-black hover:text-white"
-              >
-                <ChevronLeft />
-              </button>
+            <div className="flex items-center gap-6">
+              <span className="text-sm font-medium tabular-nums text-black/35">
+                {String(current + 1).padStart(2, "0")} / {String(t.works.length).padStart(2, "0")}
+              </span>
 
-              <button
-                onClick={nextSlide}
-                className="rounded-full border border-black/10 bg-white/60 p-4 backdrop-blur-xl transition-all hover:scale-105 hover:bg-black hover:text-white"
+              <div className="flex gap-3">
+                <button
+                  onClick={prevSlide}
+                  className="rounded-full border border-black/10 bg-white/60 p-4 backdrop-blur-xl transition-all hover:scale-105 hover:bg-black hover:text-white"
+                >
+                  <ChevronLeft />
+                </button>
+
+                <button
+                  onClick={nextSlide}
+                  className="rounded-full border border-black/10 bg-white/60 p-4 backdrop-blur-xl transition-all hover:scale-105 hover:bg-black hover:text-white"
+                >
+                  <ChevronRight />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, y: 70 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          {/* Full-bleed showcase image */}
+          <div
+            role="button"
+            onClick={() => openLightbox(selectedImage)}
+            className={`group relative left-1/2 right-1/2 -mx-[50vw] w-screen cursor-zoom-in overflow-hidden ${
+              t.works[current].previewType === "mobile" ? "bg-[#0b0b0b]" : "bg-black"
+            }`}
+          >
+            <div
+              className={
+                t.works[current].previewType === "mobile"
+                  ? "flex justify-center py-16 lg:py-24"
+                  : ""
+              }
+            >
+              <Image
+                src={t.works[current].gallery[selectedImage]}
+                alt={t.works[current].title}
+                width={2400}
+                height={1500}
+                priority
+                className={`transition-all duration-700 group-hover:scale-[1.02] ${
+                  t.works[current].previewType === "mobile"
+                    ? "h-[520px] w-[260px] rounded-[36px] object-cover shadow-[0_30px_100px_rgba(0,0,0,0.55)] sm:h-[640px] sm:w-[320px]"
+                    : "h-[46vh] w-full object-cover sm:h-[62vh] lg:h-[84vh]"
+                }`}
+              />
+            </div>
+
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/0 to-black/10" />
+
+            <div className="absolute right-6 top-6 z-20 hidden items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-white backdrop-blur-md transition-opacity group-hover:flex">
+              <Maximize2 size={16} />
+              <span className="text-xs uppercase tracking-[0.2em]">Zoom</span>
+            </div>
+
+            <div className="absolute bottom-0 left-0 right-0 px-6 pb-8 lg:px-16 lg:pb-14">
+              <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/60">
+                {t.premiumProject}
+              </p>
+
+              <h3
+                className="max-w-[85%] break-words text-4xl font-black uppercase leading-[0.95] text-white sm:text-6xl lg:text-7xl"
+                style={{
+                  fontFamily: "Benzin, sans-serif",
+                }}
               >
-                <ChevronRight />
-              </button>
+                {t.works[current].title}
+              </h3>
             </div>
           </div>
 
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, y: 70 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="overflow-hidden rounded-[42px] border border-white/40 bg-white/40 p-5 shadow-[0_10px_60px_rgba(0,0,0,0.12)] backdrop-blur-2xl"
-          >
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(360px,1fr)_minmax(320px,0.9fr)]">
-              <div>
-                <div
-                  role="button"
-                  onClick={() => openLightbox(selectedImage)}
-                  className="group relative overflow-hidden rounded-[34px] cursor-zoom-in"
-                >
-                <div
-                  className={`mx-auto overflow-hidden rounded-[34px] ${
-                    t.works[current].previewType === "mobile"
-                      ? "w-[280px] lg:w-[340px]"
-                      : "w-full"
+          <div className="mx-auto max-w-7xl px-6">
+            {/* Thumbnail strip */}
+            <div className="mt-6 flex gap-3 overflow-x-auto pb-2 lg:gap-4">
+              {t.works[current].gallery.map((img, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  className={`relative shrink-0 overflow-hidden rounded-2xl border-2 transition-all lg:rounded-[20px] ${
+                    selectedImage === index
+                      ? "border-black opacity-100"
+                      : "border-transparent opacity-50 hover:opacity-90"
                   }`}
                 >
                   <Image
-                    src={t.works[current].gallery[selectedImage]}
-                    alt={t.works[current].title}
-                    width={1800}
-                    height={1200}
-                    className={`w-full transition-all duration-700 group-hover:scale-[1.02] ${
+                    src={img}
+                    alt=""
+                    width={400}
+                    height={300}
+                    className={`object-cover transition-all duration-500 ${
                       t.works[current].previewType === "mobile"
-                        ? "h-[560px] lg:h-[700px] object-cover"
-                        : "h-[200px] lg:h-[400px] object-cover"
+                        ? "h-[100px] w-[70px] lg:h-[130px] lg:w-[90px]"
+                        : "h-[70px] w-[110px] lg:h-[100px] lg:w-[160px]"
                     }`}
                   />
+                </button>
+              ))}
+            </div>
+
+            {/* Details */}
+            <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
+              <div>
+                <div className="mb-8 inline-flex rounded-full border border-black/10 bg-white/70 px-5 py-2 text-sm backdrop-blur-xl">
+                  {t.customDevelopment}
                 </div>
 
-                  <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <p className="max-w-2xl text-lg leading-9 text-black/60 lg:text-xl lg:leading-10">
+                  {t.works[current].description}
+                </p>
 
-                  <div className="absolute right-4 top-4 z-20 hidden items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-white backdrop-blur-sm transition-opacity group-hover:flex">
-                    <Maximize2 size={16} />
-                    <span className="text-xs uppercase">Zoom</span>
+                <div className="mt-12">
+                  <p className="mb-5 text-sm uppercase tracking-[0.3em] text-black/40">
+                    {t.stack}
+                  </p>
+
+                  <div className="flex flex-wrap gap-3">
+                    {t.works[current].stack.map((tech) => (
+                      <div
+                        key={tech}
+                        className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
+                      >
+                        {tech}
+                      </div>
+                    ))}
                   </div>
-
-                  <div className="absolute bottom-8 left-8">
-                    <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/60">
-                      {t.premiumProject}
-                    </p>
-
-                    {/* <h3
-                      className="text-4xl font-black uppercase text-white max-w-[60%] break-words whitespace-normal"
-                      style={{
-                        fontFamily: "Benzin, sans-serif",
-                      }}
-                    >
-                      {works[current].title}
-                    </h3> */}
-                  </div>
-                </div>
-
-                <div className={`mt-5 grid ${t.works[current].previewType === "mobile" ? "lg:grid-cols-5" : "lg:grid-cols-4"} ${t.works[current].previewType === "mobile" ? "grid-cols-4" : "grid-cols-3"} gap-4`}>
-                  {t.works[current].gallery.map((img, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedImage(index)}
-                      className={`overflow-hidden lg:rounded-[24px] rounded-2xl border transition-all ${
-                        selectedImage === index
-                          ? "border-black shadow-xl"
-                          : "border-black/10"
-                      }`}
-                    >
-                      <Image
-                        src={img}
-                        alt=""
-                        width={400}
-                        height={300}
-                        className={`w-full object-cover transition-all duration-500 hover:scale-105 ${
-                          t.works[current].previewType === "mobile"
-                            ? "h-[90px] lg:h-[140px]"
-                            : "h-[50px] lg:h-[110px]"
-                        }`}
-                      />
-                    </button>
-                  ))}
                 </div>
               </div>
 
-              <div className="flex flex-col justify-between">
-                <div>
-                  <div className="mb-8 inline-flex rounded-full border border-black/10 bg-white/70 px-5 py-2 text-sm backdrop-blur-xl">
-                    {t.customDevelopment}
-                  </div>
+              <div className="flex flex-col gap-6">
+                <div className="rounded-[30px] border border-black/10 bg-black p-8 text-white">
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/50">
+                    {t.startingPrice}
+                  </p>
 
-                  <h3
-                    className="lg:text-4xl text-4xl font-black uppercase leading-[1] break-words"
+                  <h4
+                    className="mt-3 text-4xl font-black"
                     style={{
                       fontFamily: "Benzin, sans-serif",
                     }}
                   >
-                    {t.works[current].title}
-                  </h3>
-
-                  <p className="mt-8 text-base leading-8 text-black/60">
-                    {t.works[current].description}
-                  </p>
-
-                  <div className="mt-10">
-                    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-black/40">
-                      {t.stack}
-                    </p>
-
-                    <div className="flex flex-wrap gap-3">
-                      {t.works[current].stack.map((tech) => (
-                        <div
-                          key={tech}
-                          className="rounded-full border border-black/10 bg-white/60 px-5 py-3 text-sm font-medium backdrop-blur-xl"
-                        >
-                          {tech}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-10 rounded-[30px] border border-black/10 bg-black p-8 text-white">
-                    <p className="text-sm uppercase tracking-[0.3em] text-white/50">
-                      {t.startingPrice}
-                    </p>
-
-                    <h4
-                      className="mt-3 lg:text-4xl text-4xl font-black"
-                      style={{
-                        fontFamily: "Benzin, sans-serif",
-                      }}
-                    >
-                      {t.works[current].price}
-                    </h4>
-                  </div>
+                    {t.works[current].price}
+                  </h4>
                 </div>
 
-                <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a
-                      href="https://t.me/wanflo1dceo"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center justify-center gap-3 rounded-full bg-black px-7 py-5 text-sm font-medium text-white transition-all hover:scale-[1.03]"
-                    >
-                      {t.orderSimilar}
+                <a
+                  href="https://t.me/wanflo1dceo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-center gap-3 rounded-full bg-black px-7 py-5 text-sm font-medium text-white transition-all hover:scale-[1.03]"
+                >
+                  {t.orderSimilar}
 
-                      <ExternalLink
-                        size={18}
-                        className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
-                      />
-                    </a>
+                  <ExternalLink
+                    size={18}
+                    className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+                  />
+                </a>
 
-                    <button
-                      type="button"
-                      onClick={nextSlide}
-                      className="rounded-full border border-black/10 bg-white/60 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white inline-flex items-center justify-center gap-2"
-                    >
-                      Next work
-                      <ChevronRight size={18} />
-                    </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white/60 px-7 py-5 text-sm backdrop-blur-xl transition-all hover:bg-black hover:text-white"
+                >
+                  Next work
+                  <ChevronRight size={18} />
+                </button>
               </div>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </section>
       <section id="services" className="relative z-10 px-6 py-8">
         <div className="mx-auto max-w-7xl">
