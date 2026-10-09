@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { Golos_Text } from "next/font/google";
 import "./globals.css";
+
+const golosText = Golos_Text({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-golos",
+});
 
 export const metadata: Metadata = {
   title: "Wan Flo1d's Store 2026 | Sites | AI services",
@@ -12,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ru" className={golosText.variable}>
       <body>{children}</body>
     </html>
   );
